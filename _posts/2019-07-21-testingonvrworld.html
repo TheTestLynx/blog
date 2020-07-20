@@ -1,0 +1,299 @@
+---
+layout: post
+title: Testing on VR world
+date: 2019-07-21 11:13:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- HandsOn
+- VR
+tags:
+- testing
+meta:
+  _oembed_927dda066ac53045ccd0e61cf953e3ff: "{{unknown}}"
+  _oembed_e4c10e5f4161ff9ea64ec2143be6267e: "{{unknown}}"
+  _oembed_0845f34d5431c3c31df96900e87348a5: "{{unknown}}"
+  _oembed_1dc8b1d836e6f8c6fa9f24e2e00d6bab: "{{unknown}}"
+  _wp_desired_post_slug: ''
+  _oembed_969740bb519b930c9515215bada4df7f: "{{unknown}}"
+  _oembed_01718f59ab8cb54a7d75f05f4c311300: '<blockquote class="wp-embedded-content"
+    data-secret="NUAruZ8TwU"><a href="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/">How
+    to Avoid the Effect of Motion Sickness in VR</a></blockquote><iframe title="&#8220;How
+    to Avoid the Effect of Motion Sickness in VR&#8221; &#8212; VRScout" class="wp-embedded-content"
+    sandbox="allow-scripts" security="restricted" style="position: absolute; clip:
+    rect(1px, 1px, 1px, 1px);" src="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/embed/#?secret=NUAruZ8TwU"
+    data-secret="NUAruZ8TwU" width="580" height="327" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
+  _oembed_time_01718f59ab8cb54a7d75f05f4c311300: '1562132138'
+  _oembed_b88075aeb275224a822f3cfd551b45fb: "{{unknown}}"
+  _oembed_ee5929e90fde574dbf967ab8e66d3e2f: "{{unknown}}"
+  _oembed_2398a56e408a5fa067a664e06d8ef2c6: "{{unknown}}"
+  _oembed_1b02a08d6058bd4720a7ce5fbce7118d: '<blockquote class="wp-embedded-content"
+    data-secret="ljiLulmWA2"><a href="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/">How
+    to Avoid the Effect of Motion Sickness in VR</a></blockquote><iframe title="&#8220;How
+    to Avoid the Effect of Motion Sickness in VR&#8221; &#8212; VRScout" class="wp-embedded-content"
+    sandbox="allow-scripts" security="restricted" style="position: absolute; clip:
+    rect(1px, 1px, 1px, 1px);" src="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/embed/#?secret=ljiLulmWA2"
+    data-secret="ljiLulmWA2" width="600" height="338" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
+  _oembed_time_1b02a08d6058bd4720a7ce5fbce7118d: '1562135337'
+  _oembed_858726ae2cd0cf80a84b18573ba5214a: "{{unknown}}"
+  _oembed_867df9d50507b526ba685fe0032f2c2f: "{{unknown}}"
+  _oembed_32591e3566c62a1d7c0e32b273bfe12e: "{{unknown}}"
+  _oembed_a3033ae07e9ad120c6b315491be36f02: "{{unknown}}"
+  _wp_old_date: '2018-04-09'
+  _publicize_job_id: '33110375464'
+  timeline_notification: '1563726079'
+  _wp_old_slug: __trashed
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2019/07/21/testingonvrworld/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Previously, I've written<a href="https://thetestlynx.wordpress.com/2018/04/07/virtual-reality-start-pack-and-vr-udacity-nanodegree-experience/"> a couple</a> of <a href="https://thetestlynx.wordpress.com/2019/07/08/how-do-i-get-into-guide/">posts </a>about how to get yourself started on VR in which I promised some stories about testing on this world. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Why do I call it world instead of application? Because the goal of virtual reality is to create realistic synthetic worlds that we can inspect and interact with. There are different ways of interacting in these worlds depending on the device type.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> Testing an application in VR would be similar to testing any other application, while we would have to take into account some particularities about the environment. Later on we will see different kinds of testing and think about the additional steps for them in VR, but first let's see the characteristics of the different types of devices. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Types of devices:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Phone devices</strong> (Google Cardboard or DayDream) - allows you to connect your phone (or tablet) on the device to be able to play a VR app in there. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> This is possible because most of smartphones nowadays come with gyroscopes: a sensor which uses the Earth’s gravity to determine the orientation.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Some Cardboards (or other plastic versions) can have buttons or a separate trigger for actions on the screen (as it is the case for DayDream), but the click is usually not performed in the object. Instead, it is done anywhere in the screen while the sight is fixated on the object. If the device does not have a button or clicker, the developer have to rely on other information for interaction, such as entering and exiting objects or analyzing the length of time the user was on the object. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/pexels-photo-936575.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt="" /><br />
+<figcaption>Cardboard VR device - Picture credit <a href="https://www.pexels.com/@mentatdgt-330508">mentatdgt</a></figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Computer connected devices</strong> (HTC, Oculus, Samsung VR...) that generally comes with (at least) a headset and handset, have an oled device with high resolution and supporting low persistence embedded in the headset, so you don’t need to connect it to a screen. They detect further movement, as it is not just about the movement of the head but also the movement on the room itself and the hand gestures. This is done differently depending on the device itself.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> We have moved from being able to detect user head movement (with reasonable size devices), to use sounds, to use hand gestures... so now, testing VR applications is getting more complicated as it now require the test of multiple inputs. The handset devices usually have menu options as well.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>
+Before going on, I'd like to mention AR. AR is about adding some virtual<br />
+ elements in the real world, but with AR we do not create the world.<br />
+However, AR has a lot in common with VR, starting with the developing<br />
+systems. Therefore, the testing of the two platforms would be very<br />
+similar</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> We have talked about the hardware devices in which the VR applications would run, but we should also talk about the software in which the applications are written.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1686,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/samsung2-1.png" alt="" class="wp-image-1686" /><br />
+<figcaption>Samsung gear + one handset</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Developing platforms:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p> Right now there are two main platforms for developing in VR: <a href="https://unity.com/">Unity </a>and <a href="https://www.unrealengine.com/">Unreal</a>, and you can also find some <a href="https://webvr.info/">VR Web apps</a>.  Most of things that are done with Unity use C# to control the program. Unreal feels a bit more drag and drop than unity.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> Besides this, if you are considering to work in a VR application, you should also take into account the creation of the 3D objects, which is usually done with tools such as <a href="https://www.blender.org/">blender </a>or you can find some already created onlin.e</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>But, what's different in a VR application for testers?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Tests in VR applications:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p> VR applications have some specifics that we should be aware of when testing.  A good general way of approaching testing on VR would be to think about what could make people uncomfortable or difficult.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> For example, sounds could be very important, as they can create very realistic experiences when done appropriately, that make you look where the action is happening or help you find hidden objects.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's explore each of the VR testing types and list the ways we can ensure quality in a virtual world.  I am assuming you know what these testing are about and I'm not defining them deeply, but I will be giving examples and talking about the barriers in VR. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Usability testing:</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p> It ensures that the customer can use the system appropriately. There are additional measurements when testing in VR such as verifying that the user can see and reach the objects comfortably and these are aligned appropriately. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We are not all built in the same way, so maybe we should have some configuration before the application for the users to be able to interact properly with the objects.  For example, the objects around us could be not seen or reached easily by all our users as our arms are not the same length.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> You should also check that colors, lighting and scale are realistic and according with the specifications. This could not only affect quality, but change the experience completely.  For example, maybe we want a scale to be bigger than the user to give the feeling of shrinking.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> It is important to verify that the movement does not cause motion sickness.  This is another particularly important concept for VR applications that occurs when what you see does not line up with what you feel, then you start feeling uncomfortable or dizzy. Everyone have a different threshold for this, so it is important to make sure the apps are not going to cause it if used for long time. For example, ensure the motions are slow or placing the users in a cabin area where things  around them are static, or maintaining a high frame-rate and avoiding blurry objects. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":397,"height":413,"sizeSlug":"large","linkDestination":"custom"} --></p>
+<figure class="wp-block-image size-large is-resized"><a href="https://images.pexels.com/photos/1372977/pexels-photo-1372977.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"><img src="{{ site.baseurl }}/assets/pexels-photo-1372977.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt="" width="397" height="413" /></a><br />
+<figcaption>Sitting experience - Picture credit  <a href="https://www.pexels.com/@rawpixel">rawpixel.com</a>  </figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p> If there is someone on your team that is particularly sensitive to motion sickness, this person would be the best one to take the tester role for the occasion. In my case, I asked for the help of my mother, who was not used at all to any similar experiences and was very confused about the entire functioning. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Accessibility testing</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Is a subset of usability testing that ensures that the application being tested can be appropriately used by people with disabilities like hearing, color blindness, old age and other disadvantaged groups.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Accessibility is especially important in VR as there are more considerations to make than in other applications such: mobility, hearing, cognition, vision and even olfactory. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For mobility, think about height of the users, hand gestures, range of motion, ability to walk, duck, kneel, balance, speed, orientation...</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To ensure the integration of users with hearing issues, inserting subtitles of the dialogs would be a must, and ensuring those are easily readable. The position of the dialogs should be able to tell the user where the sound is coming from. In terms of speech, when a VR experience require this, it would be nice if the user could also provide other terms of visual communication.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are different degrees of blindness, so this should be something we want to take into account. It is important that the objects have a good contrast and that the user can zoom into them in case they are too far away. Sounds are also a very important part of the experience and it would be ideal that we can move around and interact with the objects based on sound.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I realized on how different the experience could be depending on the user just by asking my mother to help me test one of my apps. She usually wears glasses to read, so from the very beginning she could not see the text as clearly as I did.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I mentioned before that in VR it is possible to interact with object by focusing the camera on them for a period of time. This is a simple alternative to click without the need of hand gestures for people with difficulty using them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are many sources online about how to make fully accessible VR experiences, and I am sure you can come up with your own tests. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Integration testing</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p> Its purpose is to ensure that the entire application functions as is should in the real world and meets all requirements and specifications.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> To test a VR application, you need to know the appropriated hardware,  user targeting and other design details that we would go through with  the other type of testing.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Also, in VR everything is 360 degrees in 3 coordinates, so camera movement is crucial in order to automate tests.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Besides, there might be multiple object interaction around us that we would also need to verify, such collisions, visibility, sounds, bouncing...</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are currently some <a href="https://bitbucket.org/Unity-Technologies/unitytesttools/wiki/Home">testing tools</a>, some <a href="https://docs.unity3d.com/Manual/testing-editortestsrunner.html">within Unity</a> that could help us automate things in VR but most are thought from a developer's perspective. That's one more reason for us to ensure that the developers are writing good <strong>unit tests</strong> to the functions associated with the functionality and, when possible, with the objects and prefabs. In special, unit test should focus in three main aspects for testing: the code, the object interaction and the scenes. If the application is using some database, or some API to control things that then change in VR, we should still test them as usual. These tests would alleviate the integration tests phase.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1682,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/testr.png" alt="" class="wp-image-1682" /><br />
+<figcaption>Unity test runner</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Many things are rapidly changing on this area, as many people have understood the need for automation over VR. When I started with unity, I did not know the existence of the testing tools, and tested most of it manually, but there are some automated recording and playback tools around.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Performance testing</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Is the process of determining the speed or effectiveness of a system.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In VR the scale, a high number of objects, different materials and textures and number and of lights and shadows can affect the system performance. The performance would vary between devices, so the best thing to do would be to check with the supported ones. This is a bit expensive to do, that's why some apps would only focus in one platform.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Many of my first apps were running perfectly well in the computer but they would not even start on my phone.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>It is important to have a good balance to have an attractive and responsive application. New technologies also make it important to have a good performance, so the experience is realistic and immersive. But sometimes in order to improve performance we have to give up on other things, such as quality  of material or lights, which would also make the experience less  realistic.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the case of unity, the profiler tool would give you some idea of the performance, but there are many other tools you can also use. In VR, we need to be careful with the following data: CPU usage, GPU  usage, rendering performance, memory usage, audio and physics. For more  information on this, you can read <a href="https://blogs.unity3d.com/2013/12/30/monitoring-unity-performance-part-i/">this article</a>. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1681,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/profiler.png" alt="" class="wp-image-1681" /><br />
+<figcaption>Unity profiler</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Also, you can check for memory leaks, battery utilization, crash reports, network impact.... and use any other performance tools available on the different devices. Some of these get a screenshot of the performance by time and send it to a database to analyze or set up alerts if anything goes higher for you to get logs and investigate the issue, while others are directly installed on the device and run on demand.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Last but not least, VR applications can be multiplayer (that's the case of the <a href="https://www.vrchat.net/">VRChat</a>) and so we should verify how many users can connect at the same time and still share a pleasant experience.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Security testing</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Ensures that the system cannot be penetrated by any hacking way.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>This sort of testing is also important in VR and as the platforms evolve, new attacks could come to live. Potential future threats might be virtual property robbery, especially with the evolution of cryptocurrency and with monetization of applications.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Other testing</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Localization testing:</strong> as with any other application, we should make sure that proper translations are available for the different markets and we are using appropriate wordings for them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Safety testing:</strong> There are two main safety concerns with VR (although there might be others you could think of)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"align":"center"} --></p>
+<p style="text-align:center;">1. <strong><em>Can you easily know what's happening around you?</em></strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> Immersive applications are the goal of VR, but we are still living in a physical world. Objects around us could be harmful, and not being aware of alarms such as a fire or carbon monoxide could have catastrophic results. Being able to disconnect easily when an emergency occurs is vital on VR applications. We should make sure the user is aware of the immersion by ensuring we provide some reminder to remove objects nearby.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":396,"height":494,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/pexels-photo-2154610.jpeg?cs=srgb&amp;dl=attractive-beautiful-beauty-2154610.jpg&amp;fm=jpg" alt="" width="396" height="494" /><br />
+<figcaption> Smoke could be unnoticed - Picture credit <a href="https://www.pexels.com/@espinozafotos">CARLOS ESPINOZA</a> </figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Every time I ask someone to give a test to some app with the mobile device, they start walking and I have to stop them otherwise they might hit something. And this is the mobile device, not the entire immersive experience.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Even I, being quite aware of my surrounding, give a test to some devices that include sound, and I hit my hand with several objects around me. Also, I could not hear what the person that handed over the device was telling me.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph {"align":"center"} --></p>
+<p style="text-align:center;"><strong>2. <em>Virtual assaults in VR: </em></strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you test an application in which users can interact with each-others in VR, the distance allowed between users could make them feel uncomfortable. We should think about this too when testing VR.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Luckily, I haven't experienced any of these myself but I have read a lot of other people talking about this issue. Even some play through online on VR chat, you can see how people break through the comfort zone of the players. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Testing WITH VR: </strong>There are some tools being developed in VR to allow for many different purposes and technologies as emulation of real scenarios. Testing could be one of them, we could, for example, have a VR immersive tool to teach people how to test by examples. I have created a museum explaining the different types of testing, maybe next level could be to have a VR application with issues that the users have to find.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>What about the future? </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:image {"width":298,"height":408,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/pexels-photo-2007647.jpeg?cs=srgb&amp;dl=adult-colour-dark-2007647.jpg&amp;fm=jpg" alt="" width="298" height="408" /><br />
+<figcaption>Picture credit  <a href="https://www.pexels.com/@harsch-shivam-721256">Harsch Shivam</a> </figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We have started to seen the first wireless headsets and some environment experiences such moving platforms and smelling sensations. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We shall expect the devices to get more and more accurate and complete and therefore there would be more things to test and that we should have into account. We are also expecting the devices to get more affordable with the time, which would <a href="https://www.businessinsider.com/virtual-and-augmented-reality-markets-will-reach-162-billion-by-2020-2016-8?IR=T">increase the market</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Maybe someday we would find it hard to differentiate between what's real and what's a simulation... maybe... <a href="https://hackernoon.com/the-great-simulation-why-quantum-physics-artificial-intelligence-and-eastern-mystics-all-agree-b6c185213a18">we are already in a simulation</a>.</p>
+<p><!-- /wp:paragraph --></p>

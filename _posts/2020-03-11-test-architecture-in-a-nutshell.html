@@ -1,0 +1,154 @@
+---
+layout: post
+title: Test architecture in a nutshell
+date: 2020-03-11 17:18:05.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- architecture
+- testing
+- Thoughts
+meta:
+  _publicize_job_id: '41676257806'
+  timeline_notification: '1583947088'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/03/11/test-architecture-in-a-nutshell/"
+---
+<p><!-- wp:embed {"url":"https:\/\/cdn.pixabay.com\/photo\/2018\/01\/29\/23\/04\/plant-3117525_1280.jpg","type":"rich","providerNameSlug":"","className":""} --></p>
+<figure class="wp-block-embed is-type-rich">
+<div class="wp-block-embed__wrapper">
+https://cdn.pixabay.com/photo/2018/01/29/23/04/plant-3117525_1280.jpg
+</div>
+<figcaption>Picture from <a href="https://pixabay.com/users/ulleo-1834854/">ulleo / 3990 images</a> - a plant in a nutshell, literally<br /></figcaption>
+</figure>
+<p><!-- /wp:embed --></p>
+<p><!-- wp:paragraph --></p>
+<p>In my career I've gotten a lot of questions about test architecture: How to start testing when nothing has been done for years? How many test projects should there be? How many different type of testing do we need? Who should be in charge of testing in percentages? How to escalate testing? How to deal with big applications? How to deal with existing tests that are incomprehensible? What tools should we use? How many browsers should we test (are there more than two!?)? </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>First things first: Each application is different, each company is structured in a different way and with different resources and budget and each one has a different maturity state (which does not mean they should aspire to go to the next state, maybe they are right were they should be). There is not a 'one size fits all' solution and that's why I recommend you check it with an expert. But here are some of my previous experiences, in case you find them useful.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>On getting started</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The first things I ask when I start a conversation about starting testing for a company are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>What process are they following? (Agile, waterfall…)</li>
+<li>What technology are you using? (For development, any existing tests, code sharing, code control, task management...)</li>
+<li>What’s the relationship between the developers and testers? Do they sit together? Share code? Do common code reviews?</li>
+<li>What size is the company?</li>
+<li>Do developers write unit tests?</li>
+<li>How many people are dedicated (or plan to be) exclusively to tests?</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Do they ring a bell? Here are some of the questions I <a href="https://noemiferrera.com/2017/08/23/interviewing-your-interviewer-16-tips/">suggested </a>you could ask your interviewer if you are interviewing for a job. Of course, depending on the answers to these questions, I would suggest a different set of tools and practices (or if I am looking for a job, I could tell if I would be able to grow professionally and help the company given the circumstances and what to expect of the position)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Some more that are truly valuable are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>What does your app or company do?</li>
+<li>How many clients do you have/plan to have?</li>
+<li>What's the current vs potential growth?</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"width":540,"height":359,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/student-849822_1280.jpg" alt="" width="540" height="359" /><br />
+<figcaption>Image from <a href="https://pixabay.com/users/StartupStockPhotos-690514/">StartupStockPhotos / 121 images</a>  - all architecture need a study of the company first</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In my experience, when someone asks for help getting started with testing, there are three status the company could be at, and therefore three things might be needed:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li><em>Convincing upper management of the need to test</em>:  Sometimes you need to be able to explain to high management of the need for testing so you can get started with it. Their main fears are usually time and budget. Addressing those fears are not always easy and depend on each case, but the most important question is "Why do we test?" I leave this one for you for now, but if you are able to explain it, this point would be very easy to deal with. </li>
+<li><em>Convincing other team parties</em>: Other times, they know testing is needed but they don't know where to start (hint: unit test and TDD) When you don't have a test team in place yet, I usually suggest the developers start getting into test. Then it would be nice to have someone with test experience to orchestrate these tests, to educate the team about testing and to start creating a test system for end to end and other sort of testing, or even doing manual checks. However, from when you get someone to when you have it all up and running, it might take a while, that's why it is good that the developers start spending time in unit testing, as ideally they would keep doing this afterwards anyways. </li>
+<li><em>Getting a full framework up and running</em>: In this case, the company  have some unit testing and/or manual testing but they need help creating an automation framework and identifying other testing needs. Maybe they are also feeling insecure about the current tests and want to make sure they are not missing anything or want to improve their system (see the next two points).</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>On keeping it going</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Sometimes people are struggling with their current test systems. They might be wondering if they are doing their best as it is, or if the tests they have provide actual value. The questions you need to ask yourself are: </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Is there any repetition that could be reduced? (how many current tests and what type of tests do you have? If they run over 15 minutes, this should likely be improved)</li>
+<li>Is what we are testing really important? Sometimes we test things that don't really provide any value but it's taking time and budget to implement and keep.</li>
+<li>Are there any tests that are not up to us? For example, downloading something from a browser, unless your app IS a browser, it's probably something you should not test.</li>
+<li>Are we executing out of date tests? Keeping the system clean is highly recommended, if a feature comes back, you should be able to retrieve those tests too.</li>
+<li>Could we use any tools for tracking the issues to understand where we need or don't need tests? </li>
+<li>Do we have the right tests for the right moment? Integrating tests with CI/CD in different branches means you need to decide what to run and check and when.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>On escalating</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Horizontal <strong>scaling</strong> means that you add more machines to your testing. For example using the cloud to test in different systems (more web browsers, mobile vs machine, different OS…) </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Vertical <strong>scaling</strong> means that you scale by adding more type of tests (security, accessibility, performance...)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Identifying the type of tests you need and what systems should be covered would be part of an architecture design.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":566,"height":377,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/workplace-1245776_1280.jpg" alt="" width="566" height="377" /><br />
+<figcaption>From <a href="https://pixabay.com/users/Free-Photos-242387/">Free-Photos / 9091 images</a> - Don't forget to have a conversation with the team before and after designing the test architecture. Everyone should be on board</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>On moving on</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>You've set up one or more test frameworks. Your team (developers/SDETS...) are managing the new tests which are carefully planned and being executed as part of the CI/CD structure. The analytics are set up and alerting of any problems or improvements... Could you ever be done with testing?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> Most people in quality would straight away jump to the easy answer: "you are never done with it". However, I feel like bringing up the argument: I believe sometimes you are. The same way as you might be done with development too. You will never be 100% happy about it, but sometimes you've done your best and maintenance it's all there is left, at least for that project.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>What do you do when you are developing and you are done with that project? You move on to the next. Of course, someone should stay to fix potential issues and provide support, but you wont need such a big of a team or the same sort of skills for this. I argue here, that the same could be said for testing. Development and testing come hand to hand, when there are less changes in development there would be less changes in testing.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Does that mean nobody should look into it anymore? No, that means you need someone with other set of skills to do that. Not worse or better, just different. Some people enjoy being at the beginning of the projects (I love doing research and creating new stuff) but other people prefer maintaining them. And this does not need to be after all it's escalated, maybe your company is in the place it should be, and investing in more testing might not be necessary, even if you have the budget for it. The problem is, of course, discerning when that is the case, for which I highly recommend talking to a professional.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/cat-4081981_1280.jpg" alt="" /><br />
+<figcaption>From <a href="https://pixabay.com/users/JACLOU-DL-5602247/">JACLOU-DL / 5460 images</a> - look at this cat: this cat is moving on, why can't you? </figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>On hiring the right test manager/architect</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As I mentioned before, having a test expert helping figuring out the maturity of the company and what is needed to improve the quality of the product is very important. What do we call this expert? Test manager and test architect should not be the same position, although, sometimes companies use the descriptions a bit freely.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><strong>Test manager:</strong></em> A test manager makes sure the tests are done correctly (being them from test or dev team) and good practices are implemented. The position requires deep knowledge about testing and people skills.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong><em>Test architect:</em></strong> The architect designs the frameworks and tools to be used by testing.  The position requires deep technical knowledge and experience planning and coding things from the start (also deep knowledge about testing).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Not all companies need both of the positions, and sometimes both jobs would be done by the same person. But being called whatever it's called, someone has to make sure the system to do the testing is in place and someone has to make sure there are good practices and the right people understand how and what to look for in the quality area.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Therefore, in order to look for the right skills, you need to understand what you need. I have been asked many times for help defining test roles (I talk about the roles I've been in <a href="https://noemiferrera.com/2017/04/27/between-two-rivers/">here</a>), interviews and even salaries. In fact, there was a time I had to tell my interviewers how to interview me (and, funny story, somehow I ended up not getting the job!) But that's, well, another story...</p>
+<p><!-- /wp:paragraph --></p>

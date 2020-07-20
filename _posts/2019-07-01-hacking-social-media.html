@@ -1,0 +1,73 @@
+---
+layout: post
+title: Hacking social media
+date: 2019-07-01 12:16:07.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Thoughts
+tags:
+- testing
+meta:
+  _oembed_f79f91ee34a241cbbf7b6e3415f6f32b: "{{unknown}}"
+  _oembed_385a2ee6ef60732524866d4e849461fd: "{{unknown}}"
+  _oembed_698754824b6ab4cdb290ba415e6179dd: "{{unknown}}"
+  _oembed_b33d52ce5029706c1d18f59d29dce3ec: "{{unknown}}"
+  _oembed_d50dbaf2bf4657a7833c3a8850216a22: "{{unknown}}"
+  _oembed_b1d910a25bc4ac7031cf3b322d24f2cf: "{{unknown}}"
+  _wp_old_date: '2016-07-01'
+  _publicize_job_id: '32404705090'
+  timeline_notification: '1562061871'
+  _oembed_e4c10e5f4161ff9ea64ec2143be6267e: "{{unknown}}"
+  _oembed_1dc8b1d836e6f8c6fa9f24e2e00d6bab: '<blockquote class="wp-embedded-content"
+    data-secret="xzc546zxAQ"><a href="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/">How
+    to Avoid the Effect of Motion Sickness in VR</a></blockquote><iframe title="&#8220;How
+    to Avoid the Effect of Motion Sickness in VR&#8221; &#8212; VRScout" class="wp-embedded-content"
+    sandbox="allow-scripts" security="restricted" style="position: absolute; clip:
+    rect(1px, 1px, 1px, 1px);" src="https://vrscout.com/news/avoid-motion-sickness-developing-for-vr/embed/#?secret=xzc546zxAQ"
+    data-secret="xzc546zxAQ" width="500" height="282" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
+  _oembed_time_1dc8b1d836e6f8c6fa9f24e2e00d6bab: '1562132140'
+  _oembed_0845f34d5431c3c31df96900e87348a5: "{{unknown}}"
+  _oembed_927dda066ac53045ccd0e61cf953e3ff: "{{unknown}}"
+  _oembed_00e97c19fd4ce3c0d5c2a5baea107179: "{{unknown}}"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2019/07/01/hacking-social-media/"
+---
+<p>I know, I still owe you some stories, but I am now inspired to talk about something else. Besides, today's issue is easier to put it into words. I don't need to sit down and think carefully on a way of explaining some technical concept such as artificial intelligence while not sounding boring. But, just so you know, I am still working on the other stories.</p>
+<p>I would like to show you how dangerous social media could become and on one hand highlight the need of asking the right questions when a new technology comes along in order to set proper tests and barriers (lynx are curious animals, aren't we?).</p>
+<p>On the other hand, highlight the importance to take breaks from it and think about yourself and things that would make YOU happy instead of thinking of things that 'would make other people think that you are happy' and therefore approve of you. I hope you enjoy reading this article.</p>
+<p>Let's think about it: the most viewed YouTube channels from independent creators are from people below their 30's (or just on them), many started them 5-9 years ago. They have been getting a lot of pressure from fans and companies that would like a piece of their influence. Celebrities with less direct exposure to their fans have done crazy things in the past because of social pressure. Yet these influencers are not invited (that I know of) to Davos or famous lists of most influential people, besides demonstrating incredible marketing strategies, knowledge of new technologies, having charisma and being very intelligent (more than they let to be seen in some cases)</p>
+<p>Social media affects society, not only these influencers, but many people are actually feeling<a href="http://journals.sagepub.com/doi/abs/10.1177/2167702617723376?journalCode=cpxa&amp;"> depress or harm themselves because of social media</a>. It is also a potential source for propaganda of all types and an a source for advertisement of all sorts by using the platforms '<a href="https://marketingland.com/hacking-social-media-algorithms-losing-strategy-234793">algorithms</a>' in their favor.</p>
+<p>There is a very important point to consider, which is its the potential for hacking (if you are interested on this, there is more information <a href="https://null-byte.wonderhowto.com/forum/12-ways-hack-any-social-network-and-protect-yourself-2018-0181829/">here</a> and <a href="https://thenextweb.com/contributors/2017/08/23/hackers-using-social-media-hack/">here</a>). So, imagine that someone could actually go there and decide what you are going to see... how could this affect you?</p>
+<h4>Techniques and prevention:</h4>
+<p>Let's imagine a platform that accepts comments and likes (let's forget about dislikes). How could someone socially hack it?</p>
+<p><strong>1) Removing the likes:</strong> We would need to intercede the information that this platform is showing to the user and eliminate the likes the user will see. Maybe we should only eliminate them partially, so the user is not suspicious of not seeing any likes at all. For this, we could have a pondered random variable that would eliminate or not eliminate each like. How would you feel if all of the sudden nothing you write gets any likes? <strong>Prevention</strong>: From test side, make sure the like system works properly and cannot be done by anonymous sources. Make sure accounts are real. Make sure the user sees only real data. From user perspective, when you see something that you like, mention it in person, start a conversation about it instead of just clicking a button.</p>
+<p><strong>2) Liking specific posts:</strong> This is a bit fancier. Based on above, we could have some sort of AI algorithm that could classify the posts. Then we can decide which comments are going to show as liked for the user. How would you feel if only some type of your posts would get liked? Would that change your way of writing? <strong>Prevention</strong>: From test side, make sure all information is shown to the user. From user side, find your audience and focus on them. Also, consider talking with this people directly too (or in conferences). Try to keep honest to your goals for writing and who you want to reach.</p>
+<p><strong>3) Filtering comments</strong>: This would require some form of classification as with the previous point. Instead of targeting the likes, we would target the comments but the idea would be the same. Eliminate from view those that are not 'interesting'. What would you think if you only receive a certain types of comments? <strong>Prevention</strong>: From test side, make sure all information is shown to the user. Maybe have a conversation about the feature itself and allow users to hide all comments. From user side, as above.</p>
+<p><strong>4) Creating comments</strong>: We could create new comments with AI. You might think the user would realize about this, but if done carefully they might not even notice this or confront the person making that comment. Besides, the social media platform might allow for not-logged in comments. This adds to the feeling of the previous one. <strong>Prevention</strong>: Have a conversation about blocking anonymous comments or disabling them. From user side, if you see a strange comment from someone that does not add up, clarify this with the person. It can also help with misunderstandings. Option 2, disable or stop reading comments.</p>
+<p><strong>5) Changing the advertisement</strong> around the website to a convenient one for propaganda or for harm (only for some types of social media). <strong>Prevention</strong>: Most of sites have a way of deciding what advertisements you are more interested of. Also, try cleaning cookies regularly or use private browsers and VPN services.</p>
+<p><strong>6) Extracting</strong> automatically <strong>interesting information</strong> for malicious purposes. <strong>Prevention</strong>: Be careful with what you post, don't use information that is available for anybody as your passwords or security questions or pictures with personal data (such passports or train tickets). If you really want to share pictures of a trip, try uploading them after the trip and enjoy while in there!</p>
+<p><strong>7) Connecting certain types of people</strong>. I am not 100% sure how this could be used for malicious purposes but surely someone would find a way. Making sure you can block people is also very important.</p>
+<p><strong>8) Taking things out of context. Prevention</strong>: It's very hard to delete something from the internet once it is out there, but some platforms allow it. Have you ever read your old posts? It is a good idea to do some clean-up every so often. Also, if this happens to you, keep a track of the entire context. Maybe have a system in which you can remove what you have written before it goes online, take some hours before posting to make sure you want to post that.</p>
+<p>Why am I talking about social hacking social media in a test blog? Well, because, if you happen to be working on developing a social media project, you should make sure that these attacks are not possible and think about how the user could feel for other features to come.</p>
+<p>(Please take some time to go throughout the articles I liked above to know more)</p>
+<h4>Thoughts about being addicted to being connected:</h4>
+<p>When was the last time you did something good for someone but did not tell anybody about it? When you do something good for someone and post about it, how do you know you are doing it because of the other person and not to have a better image of yourself in front of others?</p>
+<p>When was the last time that you went for a trip and didn't share the pictures with anybody? What about not taking any pictures at all? There is something truly special about having a memory that is just yours to have.</p>
+<h4>Conclusion</h4>
+<p>Social media has evolved quickly in very short time, and we need to consider a lot of new things, more so if we are in the development team of one of these platforms. We should really stop and agree about what is ethical and not with the particular platforms and maybe even list the set of contraindications as if we do with addictive substances. For example, would it be ethical for some platforms (maybe for young people?) to change what the users see in order to protect them from the bad critic? Consider this could, in theory, save some lives, but, in contrast, it would take away some potential good feedback disguised as bad comments. Maybe this is a feature you want people to turn on and off? If not, maybe you should list in your contraindications that it could be an issue. And I don't mean terms and conditions, it's not about saving your behind if anything happens, it's about actually alerting the user about what could be experienced. Terms and conditions are...well.. another story.</p>
+<h4>Sources:</h4>
+<p>Some sources if you are interested in this area that helped me control my internet usage:</p>
+<p>Book: "<a href="https://www.catherine-price.com/how-to-break-up-with-your-phone/">How to break up with your phone</a>" by Catherine Price.</p>
+<p>Watch: <a href="https://www.youtube.com/watch?v=pLlv2o6UfTU">Crash courses on navigating digital information</a></p></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

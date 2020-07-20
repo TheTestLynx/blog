@@ -1,0 +1,59 @@
+---
+layout: post
+title: 'Hands on: automating scratch with AirtestIDE'
+date: 2018-07-21 02:47:06.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  timeline_notification: '1556095924'
+  _publicize_job_id: '30097542236'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2018/07/21/hands-on-automating-scratch-with-airtestide/"
+---
+<p>On <a href="https://thetestlynx.wordpress.com/2015/03/09/hands-on-using-ranorex-to-automate-scratch/">one of my firsts posts</a> in this blog, I went through a hands on about how to automate scratch. The goal was to be able to teach kids how to test, hand by hand with how to develop programs.</p>
+<p>Back at the time, the only program that I could find that would allow me to do this automation was not open source. The experience was very nice but since the goal was to use it on <a href="https://coderdojo.com/">coderdojo</a> , the conclusion was that it would not work out to use a paid solution.</p>
+<p>Currently, I'm part of the development team on an open source project called '<a href="https://github.com/AirtestProject/Airtest">Airtest</a>'. Please note the intention on this post is not to advertise this product, but to provide a different solution that could actually be used in coderdojo. However, I want to disclaim it clearly: I work on this project, also, I am very fond of it.</p>
+<h3>Part 1: scratch development</h3>
+<p><a href="http://scratch.mit.edu">Scratch </a>is a simple tool for getting started with developing just it by dragging and dropping easy sentences. I've already explained how to create an app with scratch in my <a href="https://thetestlynx.wordpress.com/2015/03/09/hands-on-using-ranorex-to-automate-scratch/">previous post</a>, so I am going to assume you know how to do this.</p>
+<p>Let's just use the project that I created as example: <a href="http://scratch.mit.edu/projects/48422496/">http://scratch.mit.edu/projects/48422496/</a></p>
+<p>This program moves a cat (called sprite) 10 pixels every time the user clicks on it. If it reaches a corner it supposes to bounce. The goal is to verify that the cat bounces when reached the corner.</p>
+<h3>Part 2: Using Airtest project to automate scratch</h3>
+<ol>
+<li style="list-style-type:none;">
+<ol>
+<li>Go to the official website: <a href="http://airtest.netease.com/">http://airtest.netease.com/ </a>and download Airtest IDE. (Note: it is possible that you see some Chinese around as we are based in China, but don't get too scared, everything should also be written in English)</li>
+<li>Click on "File" -&gt; "New" -&gt; ".air Airtest Project",  to create a new airtest test file<img class="alignnone size-full wp-image-1598" src="{{ site.baseurl }}/assets/1.png" alt="1" width="509" height="184" /></li>
+<li>Make sure you have "Selenium window" options active by clicking "Window"-&gt;"Selenium Window" (you can close Airtest assistance, Poco Assistance and devices).                <img class="wp-image-1627 aligncenter" src="{{ site.baseurl }}/assets/2-1.png" alt="2" width="136" height="168" /></li>
+<li>You also want to make sure you have your Chrome path configured in "Options"-&gt;"Settings". If you have Chrome installed and are using Windows, this is generally under C:/Program Files (x86)/Google/Chrome/Application/chrome.exe <img class="alignnone size-full wp-image-1600" src="{{ site.baseurl }}/assets/3.png" alt="3" width="801" height="635" /></li>
+<li>Make sure your cursor is at the bottom of the script editor.  Then, click on the globe icon at the top left of the "Selenium Window" to open a browser for test.<img class="alignnone size-full wp-image-1601" src="{{ site.baseurl }}/assets/4.png" alt="4" width="358" height="278" /></li>
+<li>Click "Yes" on the yellow message that appears on the top. <img class="alignnone size-full wp-image-1602" src="{{ site.baseurl }}/assets/5.png" alt="5" width="1279" height="127" />Now you could continue with the recording method (right hand side top button on the Selenium Window). However, since scratch is done in flash, we won't be able to retrieve a selenium element. we would proceed with Visual testing.</li>
+<li>Make sure your cursor is at the bottom of the script editor. Click the "start_web" button and input the url in the quoted yellow text. <img class="size-full wp-image-1603 aligncenter" src="{{ site.baseurl }}/assets/6.png" alt="6" width="241" height="166" /> It would look like this:
+<pre>[sourcecode language="css"]driver.get("https://scratch.mit.edu/projects/48422496/")[/sourcecode]</pre>
+</li>
+<li>Make sure your cursor is at the bottom of the script editor. Click the "airtest_touch" button and select the flag so it is within the highlighted rectangle. Double click inside it to confirm the selection  <img class="size-full wp-image-1604 aligncenter" src="{{ site.baseurl }}/assets/7.png" alt="7" width="196" height="302" /></li>
+<li>Insert a this piece of code (this is a loop to repeat the next sentence 30 times, which would be the cat click):
+<pre>[sourcecode language="css"] for x in range(0, 30): [/sourcecode]</pre>
+</li>
+<li>Make sure your cursor is at the bottom of the script editor. Click tab once. Click the "airtest_touch" button and select the cat. Double click to confirm the selection. Your code should look like this (I have added a sleep command to wait for the elements but it should not be needed): <img class="alignnone size-full wp-image-1605" src="{{ site.baseurl }}/assets/8.png" alt="8" width="914" height="769" /></li>
+<li>Click play to see how the program works (make sure to activate flash on the browser for the program to load the first time). Feel free of getting some snack while your computer does your job for you ;)</li>
+<li>Bonus step: verify that the cats bounces. You can do this by inserting an "assert_template" and selecting the cat (same as with airtest_touch). However, the program would pass if it finds a cat, in any position, so even if it is upside down. Alternatively, you can create a snapshot to check manually this part.</li>
+</ol>
+</li>
+<li style="list-style-type:none;"></li>
+</ol>
+<h3><em>Conclusion</em></h3>
+<p>Since Airtest project's back-end (poco) is based on Python (a programming language) you can insert loops and other instructions easily.</p>
+<p>Because of its powerful IDE which allows for record/playback or the use of simple buttons, it is easy for beginners.</p>
+<p>Since visual testing is possible, even within a Selenium test, it works with programs or websites in which object hierarchy (DOM) is not easy/possible to retrieve (such as flash applications).</p>
+<p>Because it is open source and the IDE is free, it can be used in teaching.</p>
+<p>There is much, much more that this one tool can do that what is shown here. However, that is... well, another story.</p>

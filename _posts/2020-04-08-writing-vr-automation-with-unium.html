@@ -1,0 +1,152 @@
+---
+layout: post
+title: Writing VR automation with Unium
+date: 2020-04-08 16:22:51.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- HandsOn
+- testing
+- Unium
+- VR
+meta:
+  _oembed_b788d4863754e63a926d12d13fa4650c: "{{unknown}}"
+  _oembed_62bba685b24526f69cb9d307341ad6c0: "{{unknown}}"
+  _oembed_37b3685fc7040abd809139066869c15b: "{{unknown}}"
+  _oembed_ef14eeed4083152398bb9e0b3783f008: "{{unknown}}"
+  _oembed_8fa52d7cb707b86dc16a997501aa3b53: "{{unknown}}"
+  _publicize_job_id: '42785263313'
+  timeline_notification: '1586362975'
+  _oembed_d1911e8aac91d865962b89a2baececb2: "{{unknown}}"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/04/08/writing-vr-automation-with-unium/"
+---
+<p><!-- wp:paragraph --></p>
+<p>As part of <a href="https://www.youtube.com/watch?v=0x4SiYkZTOE">my talk in Heisenbug</a>, I showed two examples of automation in virtual reality: <a href="https://github.com/gwaredd/unium">Unium</a> and <a href="https://github.com/AirtestProject/Poco">Poco</a>(Airtest). I feel the explanations weren't very deep, so I decided to use this format to expand on them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>1) Preparing the APP to test</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the examples below I'm going to be using a VR app that I created as part of the <a href="https://www.udacity.com/course/vr-foundations-nanodegree--nd105">VR foundations</a> Udacity course. This app was done using <a href="https://arvr.google.com/cardboard/">Google VR Cardboard</a>(which is currently sort of deprecated, but I believe it's the best first step into VR development)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can find the code <a href="https://github.com/TheTestLynx/MazeUdacity">here</a>. It was build with Unity version 2017.1.0p4 and Google Cardboard version gvr-unity-sdk-1.0.3. I'm specifying this because, sometimes Unity is funny when switching versions and things go deprecated fast in Google VR, so if you use other versions it might not work straight away.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>This application is a maze game. The user has to find a key and then a house to unlock the door with it. There are also coins scattered around the maze and the goal is to find them. Inside the house, there would be a board with the number of found keys.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2192,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/image-3.png?w=735" alt="" class="wp-image-2192" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Unit testing the application with test runner we can check some things. For example, we can check that the door 'lock' variable is on or off. However, we don't see the real result as the user would, which could cover issues such as the lock variable does not cause anything to happen in the scene or the sound or particle system are not pleasant or the user cannot reach the objects or they sizes feel wrong...</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To test this, you would have to actually go around the maze, get all the coins, get the key, go back to the door and check everything this way. The path is always the same and manual testing could get very time consuming. That's the reason of looking for solution for automation of user behaviour, as we would see with Unium.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>2) Installing and configuring Unium</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Although there is a Github project available, I recommend you do this from the asset store in Unity. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2179,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/image.png?w=1024" alt="" class="wp-image-2179" /><br />
+<figcaption>To open the store in Unity we click Window -&gt; Asset Store.</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then we search for Unium and we download the asset.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2180,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/image-1.png?w=1024" alt="" class="wp-image-2180" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"align":"left","id":2183,"width":178,"height":203,"sizeSlug":"large"} --></p>
+<div class="wp-block-image">
+<figure class="alignleft size-large is-resized"><img src="{{ site.baseurl }}/assets/image-2.png?w=356" alt="" class="wp-image-2183" width="178" height="203" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p> A folder will appear then in the Assets's folder of the project. Then we add a new empty object in the Scene of the project and we add the script of the folder from our Assets. What this script does is opening a local web server, with port 8342 by default (this can be changed), that we can use to interact with the application, retrieving data from it and sending data to it. If you are curious about how this could work, check out <a href="https://noemiferrera.com/2020/02/06/api-testing/">my post about API's</a>. This creates communication capabilities between the server and our Unity program.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>3) Using Unium</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now we can do calls directly in a browser as if we were accessing a website, such as: </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>http://localhost:8342/q/scene/Main Camera/transform/position={'x':1,'y':1,'z':0}</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>This moves the camera to the position 1,1,0. To rotate the camera we can use:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:group --></p>
+<div class="wp-block-group">
+<div class="wp-block-group__inner-container"><!-- wp:code --></p>
+<pre class="wp-block-code"><code>http://localhost:8342/q/scene/Main Camera.Transform.eulerAngles={'x':180,'y':0,'z':0}</code></pre>
+<p><!-- /wp:code --></div>
+</div>
+<p><!-- /wp:group --></p>
+<p><!-- wp:paragraph --></p>
+<p>This would set the camera to a rotation of 180 in the x axe, 0 in the y axe and 0 in the z axe.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Movement of the camera is crucial for VR apps, and we can see three issues already with these functions. The first one is that for VR applications we usually move by clicking objects called "waypoints" or with handset functions. With Unium we could use waypoints as objects and click them as such:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>http:&#047;&#047;localhost:8342/q/scene/Waypoints/Waypoint_7.Waypoint.Click()</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note that I have all waypoints under another object "Waypoints", the exact waypoint to click is called "Waypoint_7" and then the code that has the click method is called "Waypoint".  The call to click on the door the is easier because we only have one door object and we are not reusing names:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>http:&#047;&#047;localhost:8342/q/scene/DoorObject/Door.OnDoorClick()</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are not sure of the exact name of the object you can use wildcards and queries.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The second issue is the use of EulerAngles. I was able to see the rotation with <a href="https://noemiferrera.com/2019/09/12/we-need-to-talk-about-quaternions/">quaternions </a>(using "rotation" instead of "eulerAngles" at the end of the call) but I was not able to set it up for some reason (maybe now there is support for it or I was doing something wrong at the time of the testing)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The last issue is the rotation of the camera: users would create a movement when rotating towards a point or in a direction, but the rotation done with the call is done in one setting. This would not really emulate the user behaviour but with Unium we could set up a script and emulate such behaviour or use the web socket capabilities to run a query with a chosen frequency. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Unium has many scripting languages which can be used to automate these calls, for example nUnit (which is the one we would use in C# for unit test). Here is an example of use of code to do this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code --></p>
+<pre class="wp-block-syntaxhighlighter-code">dynamic camera = await u.Get("/q/scene/Camera");
+await u.Get("/q/scene/Camera.transform.position={\"x\":1, \"y\":1, \"z\":1}")
+dynamic pos1 = await u.Get("/q/scene/Camera.transform.position");
+await u.Get("/q/scene/Camera.transform.position={\"x\":180, \"y\":1, \"z\":1}")
+dynamic pos2 = await u.Get("/q/scene/Camera.transform.position");
+// verify that pos1 != pos2</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>4) Conclusions</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Unium is a powerful tool for automation of Unity projects. VR automation is possible with it, even emulating user's behaviour. However, this sort of automation is not fully black boxed, as you need to add this code into the application and possible use some methods that are existing in the application. Ideally, a fully black boxed automation would simulate the behaviour of the controllers directly.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>What's the difference between automating any game VS automating a VR Game? The main difference is that instead of a movement of a player, you need to automate the camera movement and take into account the handsets (if present). </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Sometimes, the transform (walking) is usually done by clicking waypoints and this could be done easily with Unium. Rotation can be emulated by rotating the camera as demonstrated before.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The next step would be to to automate the handsets. However, if we do this directly by calling functions on the controllers of the handset, we might enter the territory of testing that the functions by the controller's provider are working fine. Instead of this, we might just want to make sure that our functions work fine, so maybe we should call the functions that we have created to control our application when the controller selects and clicks around. But that’s... well... another story…</p>
+<p><!-- /wp:paragraph --></p>

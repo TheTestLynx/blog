@@ -1,0 +1,75 @@
+---
+layout: post
+title: The trust between test-dev
+date: 2020-07-07 18:54:34.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- testing
+- Thoughts
+meta:
+  _publicize_job_id: '46299537652'
+  timeline_notification: '1594140878'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/07/07/the-trust-between-test-dev/"
+---
+<p><!-- wp:paragraph --></p>
+<p>In many companies where development and testing are two separate efforts, I've noticed some testers trust too much in the developers. Even in companies where development is highly integrated with testing, this could result in missing tests, some of which could be crucial for finding important bugs in the app under development.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>One of the clear examples of this is when it comes to CI/CD. Usually, an admin or devops set this up. The involvement of a test expert in this area is particularly important, as they have the skills to plan the right automated tests to validate the builds. I have seen pipelines where there is no testing at all, or a group of insufficient or irrelevant tests.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For some people in the quality team, the developers are their "source of truth". I've fallen into this same error, with other colleagues with more years of experience than me: Whatever they say should be the right way - they know better. Comparing your knowledge to other's in terms of "more-less" rather than "different" is a recipe for disaster...</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let me tell you the story of a time I trusted too much in an experienced dev: there was an obvious bug in staging environment. I've logged it. Someone else logged a duplicated. We were late for release. I said I couldn't sign up with that bug there. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/butterfly-814568_960_720.jpg" alt="Butterfly, Insect, Colorful, Moth, Moth Cerura Vinula" /><br />
+<figcaption>From https://pixabay.com/images/id-814568/ - "Oh, hi there! I'm here because the dev lead says it is fine"</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The developer assigned to the feature, called the PM and me to his office and both tried to reason me to sign up. I explicitly called out the risk. He said the bug was unlikely to be hit and he didn't have time to fix it. I trusted him - I was only a junior while he was senior and longer in the company. My instincts told me that the seniority did not make him a fortune teller, but even so I said: "OK, I'll sign up as long as you get my back if anything happens." He reassured me and agreed, he said he would take all the responsibility if anything was to happen. Nothing was written down about it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When users hit the issue in production, both PM and developer immediately blamed me. By writing. Both of them. My manager blamed me. They all said I missed finding a clear bug. When I explained everyone what happened, providing logs of the defect, which was still in open state and the duplicated, where everyone involved was informed. My managed called me to his office. He told me I shouldn't have signed up and my behavior was not professional as we "shouldn't point fingers to others". In other words, I should have taken the blame the others put on me without even trying to clarify it. He didn't listen to me and it affected my performance review, which was just a week later. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>He told me I got two really bad "anonymous" reviews (hard to guess who did them, right?) and the rest, whilst good, were irrelevant.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>At the start of that same review period, I found a fix to a very important defect on another team that was costing the company a lot of money and the manager of that team said that if a developer fixed it, they would be immediately promoted. I was the one that provided the fix. It did not seem to matter.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Even the worse of the situations can become a learning, whether it happened to you or someone else. What I learnt from this one: </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Follow your instincts, if you think something is important stick with it. Avoid trusting blindly other team members based on their experience or how well you get on with them. Know your value and what you can give to the company: I decided to trust a dev based solely on his experience after having figured out an issue that many other experienced devs could not figure out.</li>
+<li>Getting to an agreement is good, but it is better if you do so by writing, so everyone can remember and review it later on. </li>
+<li>If you need to release a feature with a defect, that is OK, but plan for the worst and think about a course of action to assure the least disturbance to the users if they hit it. </li>
+<li>Finally, if you get a manager that does not support you, consider moving away. Leaders and managers should be there to help you grow and learn, to challenge you and inspire you, never to belittle you. You should always feel they make an effort to understand and protect you, at least, that's what I try to do when I lead/coach others.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"width":580,"height":386} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/arm-1284248_960_720.jpg" alt="Arm, Hand, Desk, Notebook, Pen, Writing, Write, To Do" width="580" height="386" /><br />
+<figcaption>From: https://pixabay.com/images/id-1284248/ - Plan for the worst and write it all down.</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>I hope this story I can help you out if you find yourself in a similar situation. Remember that every obstacle can become a learning.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As a final note: having trust is very important, given the right dialogues and plans of action. The opposite (not trusting the developers) is also not ideal. When there is not enough trust, walls are created between teams and things tend to get tested multiple times, but that’s well..another story.</p>
+<p><!-- /wp:paragraph --></p>

@@ -1,0 +1,203 @@
+---
+layout: post
+title: API Testing
+date: 2020-02-06 16:49:40.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- api
+- automation
+meta:
+  _publicize_job_id: '40391370017'
+  timeline_notification: '1581007784'
+  _oembed_4fcf91f7d5bf0839630fa4882b983b3c: "{{unknown}}"
+  _oembed_26c07f660622cc919992bc2822015776: "{{unknown}}"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/02/06/api-testing/"
+---
+<p><!-- wp:heading {"level":3} --></p>
+<h3>What's an API?</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>An API (Application programming interface) is a set of calls that an application does to communicate parts of the application. For example, the user's view (browser or UI) with some software component (in a remote server or within the user's computer) that makes the necessary operations for an application to function.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are curious about how this looks for a web application, you just need to check the 'network' tab on the developer's tool on your browser. You can see there are many calls happening in the background when trying to reach a website.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1964,"width":437,"height":404,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/image.png?w=768" alt="" class="wp-image-1964" width="437" height="404" /><br />
+<figcaption>Network tab on Chrome for google.com URL</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you click in one of the calls of the left hand side, you will get some information as on the right hand side. The request URL is the address that the call was trying to hit. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For these web calls, there are two main methods: GET (to request some information from the server) and POST (to send some information to the server). You can learn more about other methods <a href="https://www.w3schools.com/tags/ref_httpmethods.asp">here</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The next field is also very important. This is the message that we get from the server when the call is executed. In this case it is 307 (a redirection). If you are curious about what other statuses number mean, you can check <a href="https://http.cat">this web</a>, if you are a cat person, or if you are more of a dog person <a href="https://httpstatusdogs.com">this one</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are two widely used protocols for sending information between devices: <a href="https://www.w3schools.com/xml/xml_soap.asp">SOAP(stands for&nbsp;<strong>S</strong>imple&nbsp;<strong>O</strong>bject&nbsp;<strong>A</strong>ccess&nbsp;<strong>P</strong>rotocol</a>) that sends information with XML format and <a href="https://www.codecademy.com/articles/what-is-rest">REST(Representational State Transfer)</a> that sends information with several formats such as json, html, xml, and plain text (see<a href="https://www.w3schools.com/js/js_json_xml.asp"> this article</a> for further explanation in the formats).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Tools to test API's?</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Please keep in mind that the tools mentioned below are not the only ones in that you can use for API testing. I'm talking specifically about these ones because they are the ones I've used in the past. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the section after this one, I'll show an example about how to do an API test.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Swagger:  </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>According to <a href="https://swagger.io/">their website</a>, Swagger is an open source and professional tool-set that "Simplifies API development for users, teams, and enterprises"</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":621,"height":305,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/swagger_ui.png?ext=.png" alt="" width="621" height="305" /><br />
+<figcaption>https://swagger.io/tools/swagger-ui/</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>I have used swagger UI as a way to easily check API URLs and understand the calls to then add them into my test code, but, I have not tried all the Swagger's tooling set yet. I think this is a easy way to communicate changes on the API across the team and document it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Alternatively to this, the developers should document their API calls in some other form, generally some list, as <a href="https://developer.twitter.com/en/docs/api-reference-index">Twitter does here</a>. The problem I have had with this option is that sometimes the documentation might be out of date and then you need to figure out in the development's code what's the exact API call. With Swagger, the list of calls should come directly from the code (clarification <strong>UPDATE</strong>: depending on the API <a href="https://apisyouwonthate.com/blog/api-design-first-vs-code-first">implementation</a> and if the changes are back tracked) , which makes it easier to handle and up to date (clarification <strong>UPDATE</strong>: you shouldn't assume anything in testing).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Swagger is supported by SmartBear, same as SoapUI, so for API testing with it, please check below.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Soapui and Postman, </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p><a href="https://www.soapui.org/">SoapUI </a>is " a Complete API Test Automation Framework<strong>&nbsp;</strong>for SOAP, REST and more". There is an open source version and a professional one featuring more functionality. The API testing part looks like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":647,"height":234,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/overview?width=700&amp;height=254" alt="" width="647" height="234" /><br />
+<figcaption><a href="https://www.soapui.org/docs/endpoint-explorer.html">https://www.soapui.org/docs/endpoint-explorer.html</a></figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>I took the image from their website and it is quite self-explanatory. Besides, there is a lot of documentation to get you started in there. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><a href="https://www.postman.com/">Postman</a> is a "collaboration platform for API development".&nbsp;In the development sense, it provides automatic documentation, so there is no problem with developers making change on functionality and forgetting to upload it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For API testing, it's very easy to get started. You can create REST, SOAP, and GraphQL queries. It supports multiple authentication protocols (I talk about this later) and certificate management. Please refer to their website for further information.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Wireshark and Fiddler:</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>These two programs are very useful to analyse network packets. They are powerful programs and a must known for security, network and performance testing and checking the packets at micro level. You can actually see the exact data sent over the network. However, if what you are looking for are tools for API testing, I would probably not go for them but the ones above, because they are more high level and specific for that.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>That said, I have used them before in order to test API's that required specific secure certificates and for debugging issues (specially performance ones). If you are interested in knowing more about Fiddler, I recommend <a href="https://testguild.com/fiddler-debugging/">this article</a>. For Wireshark, <a href="https://testguild.com/podcast/automation/64-ross-bagurdes-using-wireshark-to-attack-hard-to-find-bugs/">this one</a>.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":594,"height":324,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/Main-window-2.0.0rc2.png" alt="" width="594" height="324" /><br />
+<figcaption><a href="https://blog.wireshark.org/">https://blog.wireshark.org/</a></figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>How to do this programmatically? </h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you want to add this testing into your automation code, you have some help on with the tools mentioned before. However, there are many ways of doing these type of calls with different programming languages. For example, here is how to do a rest call with python:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"python"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">import requests
+# make a get call
+response = requests.get("URL")
+
+# do something with the result
+response.status_code # this gives you the status code as mentioned above
+response.json() # this gives you a json with the response on it
+
+# make a post call
+response = request.post("URL", {json data})</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>It gets a bit more difficult when you need to add parameters, authentication or parsing some types of data, but there is plenty of documentation about it all. Let's see an specific example using the API provided by <a href="http://numbersapi.com">numbersapi.com</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"python"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">import requests
+
+response = requests.get("http://numbersapi.com/42?json")
+
+print(response.status_code)
+print(response.json())</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The result when you execute the code above is:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>200
+{'text': '42 is the result given by the web search engines Google, Wolfram Alpha and Bing when the query "the 
+answer to life the universe and everything" is entered as a search.', 'number': 42, 'found': True, 'type': 'tr
+ivia'}</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>With Python, you could play with the json data to easily retrieve and validate the text, or the number, that there is some result... </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For more information about what exactly test when testing API, I think <a href="https://medium.com/better-practices/acing-your-apis-what-you-need-to-know-for-test-automation-e3fdba3519b9">this post</a> is wonderfully well explained (they use postman as example). </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Why should I care? UI VS API testing</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>UI (User interface) testing is the best way to simulate the actual behaviour of the users. However, we tend to re-test things in the UI that could be covered already by testing the API (and in some companies this could be done by a different group or team).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's say a developer changes a call for an API. Let this call be the list of movies that someone liked. Now imagine this API call is not modified in some part of the application, the result being the user cannot find its liked movies. What's happening in the UI test?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We will then get the UI Test couldn't find an object. This could be due to the API call being wrong or a bug in the automation, an update on the way of the object needs to be retrieved, a button not working properly, the object being hidden somehow... </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>However, if you have an API test for it, you should be able to understand that the call is not retrieving anything. If you need to verify things such as results of a search, it's probably best to use API to check the entire list (which could be done with a quick comparison) and let the UI verify that<strong> a result appears</strong> where it should rather than <strong>the result itself</strong>. Also, you should be verifying that the API call is correct (and update the test call if it is not).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Level up:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>API calls are less likeable to change than UI objects and they generally come in different versions when they do, not to disturb previous releases of the application. This means you might want to add functionality to verify which version is being tested.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>It is also interesting to use this to speed up our UI testing. The most common example being the Login method. This method is usually a bottle neck for the rest of the tests, and if it fails, you don't know what else might be failing or passing and you are blocked until the fix. Whilst it's super important to have a Login test to make sure that your users can log into the application, performing UI login each time it's needed for another test, slows down your execution.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1988,"width":306,"height":341,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/image-2.png?w=778" alt="" class="wp-image-1988" width="306" height="341" /><br />
+<figcaption>Google login screen</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>What's the solution? You can use API testing to skip the login bit. Be careful when doing this, it wouldn't be secure to have an API to do this in production environment. An example could be to set up some unique tokens (see an example about doing this with soapUI <a href="https://www.soapui.org/docs/oauth1/retrieving-access-tokens.html">here</a>) that are of quick expiration to perform this skip and send it alongside the URL, or have an API call that sets some cookies or session to be logged in.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you have other repetitive dependent tests, you should consider running API calls for them before continuing with the test that depends on it. This would considerably speed up your test execution and your results would give you more trustful information about the problem.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>That said, UI testing is the best way of ensuring everything works as per user behaviour and E2E and integration tests should not be substituted by API tests, use it only as a help and if it is not increasing the complexity and failures of your tests.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Yet another level up: stats</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Another interesting thing that you can do thanks to API calls is to find out information about your application and about how users are using it. To analyse and visualise calls in a bigger scale you can use tools such as <a href="https://www.elastic.co/app-search">elastic search</a> and <a href="https://www.elastic.co/kibana">kibana</a>, and even use artificial intelligence to get conclusions from such calls, but that's... well... another story.</p>
+<p><!-- /wp:paragraph --></p>

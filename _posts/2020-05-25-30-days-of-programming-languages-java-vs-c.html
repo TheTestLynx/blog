@@ -1,0 +1,188 @@
+---
+layout: post
+title: 30 days of programming languages - Java vs C#
+date: 2020-05-25 17:47:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- c#
+- java
+- languages
+- programming
+- Thoughts
+meta:
+  _oembed_f8a6fc5c428fcd9bc6857d1c96d2a884: "{{unknown}}"
+  _oembed_27153c3c16c63687833fb4230d9a94db: "{{unknown}}"
+  _publicize_job_id: '44719308782'
+  timeline_notification: '1590508004'
+  _wp_old_date: '2020-05-26'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/05/25/30-days-of-programming-languages-java-vs-c/"
+---
+<p><!-- wp:paragraph --></p>
+<p>I am starting to collect a long list of programming languages that I have worked with, but in reality, when I need to switch from one to another, it takes me a bit of time to get used to them again, specially after a while. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>A couple of months back, I've challenged myself to practice a language each month, by solving a daily problem, to keep myself constantly updated on them. Since challenges seem to be fashionable, you can call this  the #30DaysOfProgrammingLanguages challenge.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To do this, I started working with <a href="http://leetcode.com">leetcode</a>, which happens to have monthly challenges, so the choice of those problems was already conveniently made for me. These problems don't take long to complete, and if they do it means I need to practice that concept, which in turns means that it's a good thing to go over them. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I did April's challenge with C# and May's with Java, and here is what I've learnt:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Initial assumptions</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before starting my feeling was that both languages are close enough and I was going to need to change very little in between them, maybe some grammar. On the other hand, I thought that one of these coding challenges per month was not going to be enough to review all the details of the languages and to really get them I was going to need to build some app.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Discoveries</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Casing differences:</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Java prefers classes in uppercase, and methods in lowercase, the opposite as C#.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Length, length(), size(), count: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>I am still wondering why do we need different grammar for the same concept. As far as I remember:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>For C#, arrays use Length, strings Length and Lists and most other classes under Icollection, Count. </li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Similarly, for Java, arrays use length, string length() and the others usually size().</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>When in doubt, remember the rule of lowercase in Java, upper in C#.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Values and references: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For problems such as <a href="https://leetcode.com/problems/validate-binary-search-tree">Validate Binary Search Tree</a>, sometimes is convenient to send "null" for the first iteration of the methods. In Java, this means passing the object instead of the data type (so you are getting reference instead of value). In C#, it is possible to do this too, using nullable value types ("<em>int?</em>"), but I actually struggled many times with this problem in C# because this <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">was not introduced</a> until C# 8.0 (.NET core 3.0). It is possible to solve it without passing null, it's just faster and cleaner to use that.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The following are two equivalent function definitions, for C# first, and Java second.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">private bool isValid(TreeNode node, int? left, int? right);</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">private boolean isValid(TreeNode root, Integer lower, Integer higher);</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Dictionaries and maps: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>This is probably what needs biggest attention. I honestly find dictionaries much easier to work with in C# than in Java. For example, access of an element is done with [], in Java you need the get() method, which is already more typing and more confusing when getting inside other statements that use parentheses. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Iterating through a dictionary (in my experience, if you need to do this, keep in mind that there is probably a better way of doing that exercise than the one you are thinking of), is done by KeyValuePair in C# and entrySet() in Java.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>On initializing, you need to use objects for Java while you C# would use data types when possible, which means you need to compare with equals rather than ==. Check below's example for this last point, first code is written in C# and second the Java equivalent.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">Dictionary&lt;Char, Int32&gt; myMap = new Dictionary&lt;Char, Int32&gt;();
+ // Initialization omitted. 'a' and 'b' have the same integer.
+ myMap['a']==myMap['b']; // --&gt;works
+ myMap['a'].equals(myMap['b']); // --&gt; Compiler error: 'int' does not contain a definition for 'equals' and no accessible extension method 'equals' accepting a first argument of type 'int' could be found</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code"> HashMap&lt;Character, Integer&gt; myMap = new HashMap&lt;&gt;();
+  // Initialization omitted. 'a' and 'b' have the same integer.
+ myMap.get('a') == myMap.get('b'); //-&gt; sometimes would return false when true
+ myMap.get('a').equals(myMap.get('b')); //-&gt; works</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note as well how the use of generic are slightly different for both of them. Since most times it might not cause an issue, because the way the <a href="https://en.wikipedia.org/wiki/Memory_management#HEAP">heap works</a>, it might cause issues that are hard to reproduce. This was one of <a href="https://leetcode.com/problems/sort-characters-by-frequency">the problems</a> that helped me reproduce the issue (in particular when there was a case with a very long string with at least two characters with the same frequency).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Interfaces for the data structures: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Interfaces in C# conventionally start with "I", while in Java they might have a different names. One more example follows, C# code firstly and Java equivalent after.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">IList&lt;T&gt; myList = new List&lt;&gt;();</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">List&lt;T&gt; myList = new ArrayList&lt;&gt;(); // There is no "List" class</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Below is a generic diagram of equivalence of collection classes in Java vs C#, where <em>left and blue</em> represent Java conventions and <em>green and right </em>C#. Note the classes below are for the C# generic collection, but you might find keywords that would match Java's in C# which are not from the generic collection (you can't use &lt;T&gt; with them). The use of these <a href="https://github.com/dotnet/platform-compat/blob/master/docs/DE0006.md">are not recommended</a> and I have not added them in the diagram's C# side. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>There are also some concurrent classes that are not included.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":2294,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/untitled-document2.png?w=1024" alt="" class="wp-image-2294" /><br />
+<figcaption>Diagram made with <a href="https://app.creately.com">Creately</a>. Concrete classes that inherit from Map/Dictionary are purposely not added. Zoom in might be required but worth it.</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let me know if you want another article comparing class by class and zooming in on each group, or if you find any errata on the diagram.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Rediscovering switches: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>One great thing about leetcode is that once you have finished the challenge, it shows you a graph comparing your solution's performance with others. That gives you the opportunity of checking how others did it and improving your skills. By doing this, I realized that I needed to refresh my knowledge about <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch">switch statements in c#</a>. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Things I did not get to review</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>There were also some things I did not happen to find and I wish I would have reviewed:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Regular expressions</li>
+<li>Lambda expressions </li>
+<li>File manipulation</li>
+<li>Tuples</li>
+<li>Concurrency and async programming</li>
+<li>Iterators over data structures (more in depth)</li>
+<li>linq </li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Another issue to mention is that most times you can get away changing the objects that were passed by parameters in the problems, without penalty from leetcode, and this could lead to problems in a bigger code base. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>It will be nice to have challenges that highlight these in a git repository or leetcode collection and add some reviewing these concepts. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You can see other differences <a href="https://en.wikipedia.org/wiki/Comparison_of_C_Sharp_and_Java">here</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Conclusions</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>I actually completed several of these problems per day, and some of the days I would switch back and forth (especially if I find something interesting), but the point is to keep constantly updated with the languages and I was looking for something that I could do daily without getting burnt out. Even so, I did find many things I did not remember of the languages and I refreshed more than the syntax. I think under daily busy situations, one problem a day is still achievable.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If I was to go back to some versions of say, Java, I would encounter different issues than the aforementioned. Keep in mind these are the ones I noticed at the time of writing this article.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Overall, it was a great experience and review of concepts. I am looking forward to keep refreshing other languages and see how it affects me in the long run. So far, I feel I'm slower when writing code because I keep forgetting the right grammar and particulars of each language, hopefully this will help me getting faster while keeping me up to date across them all. I will keep comparing other languages and updating my experience, but that's well..another story.</p>
+<p><!-- /wp:paragraph --></p>

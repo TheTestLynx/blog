@@ -1,0 +1,109 @@
+---
+layout: post
+title: We need to talk about quaternions...
+date: 2019-09-12 10:55:17.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- automation
+- VR
+meta:
+  _publicize_job_id: '35206903264'
+  timeline_notification: '1568285720'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2019/09/12/we-need-to-talk-about-quaternions/"
+---
+<p><!-- wp:paragraph --></p>
+<p>I know, I know, this doesn't seem like anything that has to do with testing. However, I found this concept to be very challenging and I think some people might be interested in knowing about it, especially if they are considering automating objects on VR.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>The problem: </h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>You want to be able to rotate the main camera with <a href="https://vr.google.com/">Google VR</a>. Google design has reached the conclusion that moving the camera in virtual reality should be something that the user does, not the developer (I think it was possible in earlier versions of Unity and Google VR sdk).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>So I decided to create an empty object and assign the camera as a child object of it. To move the camera, I move this object. To undo the camera movement done by the user, I move the object the opposite way. Should be easy, shouldn't it?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> Well, sometimes... but other times it does not work. I spent a very long time searching online for other people that had this issue and it was either working for them or not, nobody would explain why this was the case. I believe the reason to be the effect of gimbal lock. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":1807,"width":358,"height":246} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter is-resized"><img src="{{ site.baseurl }}/assets/image-2.png?w=652" alt="" class="wp-image-1807" width="358" height="246" /><br />
+<figcaption>From <a href="https://youtu.be/zc8b2Jo7mno">this aforementioned video</a>  </figcaption>
+</figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>I know, that sounds like a made up word, but this is actually an important concept that you should be aware of, let me explain:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Gimbal lock is an effect in which the object loses one degree of rotation, which is common when you use three dimensional vectors. At some point, two of the rotation coordinates get lined up in a way that every time you move one, the other one moves as well. If you are a visual person, <a href="https://youtu.be/zc8b2Jo7mno">this video</a> from <a href="https://www.youtube.com/channel/UC5fpWfCQ95VFghlkH1RG70w">GuerrillaCG  </a>(a Youtube channel with information about 3D modelling and animation) explains it quite clearly.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>How did I understand what this mean and how did I figure this was the issue? I decided to encapsulate the camera object in another object, and then that object in another one. Then I assigned them some colored spheres and pointers and I run some tests. After a while, it became clear that movements were not coordinated and that the rotation variables were not working as expected.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","id":1802,"width":463,"height":307} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter is-resized"><img src="{{ site.baseurl }}/assets/image.png?w=323" alt="" class="wp-image-1802" width="463" height="307" /><br />
+<figcaption>Attempts to understand 3D issues</figcaption>
+</figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Introducing quaternions:</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p> The difference between Euler vectors (the usual 3 components vector that indicates a point in the 3D space) and quaternions (a 4 components vector) could help us avoid the Gimbal lock effect.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Quoting <a href="https://en.wikipedia.org/wiki/Quaternion">wikipedia</a>: <em>" In <a href="https://en.wikipedia.org/wiki/Mathematics">mathematics</a>, the <strong>quaternions</strong> are a <a href="https://en.wikipedia.org/wiki/Number_system">number system</a> that extends the <a href="https://en.wikipedia.org/wiki/Complex_number">complex numbers</a>.  [...]  Quaternions find uses in both <a href="https://en.wikipedia.org/wiki/Pure_mathematics">pure</a> and <a href="https://en.wikipedia.org/wiki/Applied_mathematics">applied mathematics</a>, in particular for <a href="https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation">calculations involving three-dimensional rotations</a> such as in <a href="https://en.wikipedia.org/wiki/3D_computer_graphics">three-dimensional computer graphics</a>, <a href="https://en.wikipedia.org/wiki/Computer_vision">computer vision</a>,[...] "</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p> I know, it still sounds a bit gibberish... Basically (very basically), quaternions are a mathematical way of representing 3D objects by using 4 coordinates (representing them in 4D space instead), that an Irish mathematician (called William Rowan Hamilton) came up with and decided to literally set in stone, on a bridge.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"align":"center","width":438,"height":329} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter is-resized"><img src="{{ site.baseurl }}/assets/William_Rowan_Hamilton_Plaque_-_geograph.org.uk_-_347941.jpg" alt="https://upload.wikimedia.org/wikipedia/commons/a/a2/William_Rowan_Hamilton_Plaque_-_geograph.org.uk_-_347941.jpg" width="438" height="329" /><br />
+<figcaption>Commemorative Hamilton plaque on Broome Bridge. From <a href="https://en.wikipedia.org/wiki/File:William_Rowan_Hamilton_Plaque_-_geograph.org.uk_-_347941.jpg">wikipedia</a></figcaption>
+</figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>They are difficult to understand and to visualise (as we don't intuitively know how a 4D space should be visualised), but the maths applied to them are easier than to the 3D vectors. For example: if you want to rotate an object on an x plane, on the y plane and on the z plane, the object will not be in the same state if you perform the entire rotation on x and then on y and then on z, that if you do it in a different order (because each coordinate rotates based on the others too). However, with quaternions, you will always get the same result, as you can rotate two planes at once (which is particularly convenient when you are trying to undo a movement or automate a 3D object)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>I am linking to a lot of articles below for you to deep dive, but two main points to remember are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>You should keep one of the values of the quaternions fixed (or set to 1) as this is the way of telling the quaternions that there has been a rotation. </li>
+<li>Rotation angles in quaternions are half the expected in 3D rotation (so be careful when calculating the rotations in 4D). This is known as double-cover and it's actually quite useful once you get the grasp on it.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"align":"center","id":1806} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/image-1.png?w=1024" alt="" class="wp-image-1806" /><br />
+<figcaption>From <a href="https://eater.net/quaternions/video/stereo4d">https://eater.net/quaternions/video/stereo4d</a> </figcaption>
+</figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are interested in knowing more about quaternions, you can check <a href="https://www.youtube.com/watch?v=d4EgbgTm0Bg">this </a> and <a href="https://www.youtube.com/watch?v=zjMuIxRvygQ">this </a>videos from <a href="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw">3Blue1Brown </a>(a Youtube channel full of interesting mathematical concepts with a very easy explanation, I really recommend it) Also, I enjoyed the explanations on <a href="http://www.reedbeta.com/blog/why-quaternions-double-cover/">this article</a>. If you are considering working with 3D objects movement at some point, you should definitely watch these videos and play around with the simulators to understand everything better. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Conclusion</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>It is not my intention to go against the design of a system such as Google VR, and you should listen to the platform owners as, in general, it is wise not to tinker with the camera. However, sometimes I find it to be useful to undo a user's movement, for example, for automation purposes or if the <a href="https://science.howstuffworks.com/gyroscope.htm">gyroscope</a> is <a href="https://www.reddit.com/r/GoogleCardboard/comments/3dlu1h/drifting_problem_with_vr_player/">drifting</a> on its own (more about phone's sensors <a href="https://gizmodo.com/all-the-sensors-in-your-smartphone-and-how-they-work-1797121002">in this interesting article</a>).<br />In these cases, the use of quaternions is so fundamental, that it is definitely worth it to spend sometime learning about them.<br />The next step after the automation of the camera and other 3D objects would be to automate the hands movements, but that's...well...another story </p>
+<p><!-- /wp:paragraph --></p>

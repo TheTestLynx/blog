@@ -1,0 +1,123 @@
+---
+layout: post
+title: How to test a time machine
+date: 2019-12-10 11:38:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- fun
+- testing
+- Thoughts
+- types
+meta:
+  timeline_notification: '1576003234'
+  _publicize_job_id: '38324133973'
+  _publicize_pending: '1'
+  _oembed_eb8783df4eccf1e23ff9396e1e15ff54: "{{unknown}}"
+  _oembed_4655e8af8e14964470712941d9c78faf: "{{unknown}}"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2019/12/10/how-to-test-a-time-machine/"
+---
+<p>I have recently watched <a href="https://www.youtube.com/watch?v=pGnMiGrYmPE">a video</a> from <a href="https://www.youtube.com/channel/UC7_gcs09iThXybpVgjHZ_7g">PBS space time</a> that got me thinking: if we were to have a time machine, how would we test it? I've seen a lot of "how would you test X" type of questions in interviews, but I don't think I've ever seen this one before (I am not trying to give you ideas for interview questions!)</p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>It's not rocket science... it's rocking testing science!</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>I couldn't help but compare it firstly to a spaceflight, so I started wondering: how do they test spacecrafts? And what better one than Apollo 11 to start with? If only we had a time machine for getting <a href="https://github.com/chrislgarry/Apollo-11">its source code</a>... Yes, I have been looking at Assembly code trying to make sense of potential testing routines, like <a href="https://github.com/chrislgarry/Apollo-11/blob/master/Luminary099/IMU_PERFORMANCE_TEST_2.agc">this one</a>... and... guess what I found there?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1862,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/screenshot-2019-12-08-at-14.25.03.png?w=1024" alt="" class="wp-image-1862" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>This section of the code is checking the Gimbal lock of the accelerometers! Do you remember the concept from my <a href="https://noemiferrera.com/2019/09/12/we-need-to-talk-about-quaternions/">last post</a>? Maybe I just have a case of <a href="https://science.howstuffworks.com/life/inside-the-mind/human-brain/baader-meinhof-phenomenon.htm">Baader-Meinhof</a>, but I do feel Gimbal lock is an important concept to learn, so check it out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Testing in Assembly was not as 'easy' as <a href="http://blog.code-cop.org/2015/08/how-to-unit-test-assembly.html">nowadays</a> (for example, macros does not seem to be a thing that I could find in the <a href="https://www.ibiblio.org/apollo/assembly_language_manual.html">Apollo11 programming syntax</a>). Do not expect a page object model or a library with tests or testing functions. Nor common methods for before and after tests. Actually, don't expect any sort of OOP, to start with.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In my search I could find some files with tests on them, but they are mostly for stressing the hardware by sending signals to the different devices and recovering from bad statuses. Also, spacecrafts might need to check correctness of bits to make sure there are no <a href="https://around.com/ariane.html">catastrophic arithmetic errors</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"width":355,"height":532} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/1200px-Ariane_5ES_with_ATV_4_on_its_way_to_ELA-3.jpg" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Ariane_5ES_with_ATV_4_on_its_way_to_ELA-3.jpg/1200px-Ariane_5ES_with_ATV_4_on_its_way_to_ELA-3.jpg" width="355" height="532" /><br />
+<figcaption>from <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Ariane_5ES_with_ATV_4_on_its_way_to_ELA-3.jpg/1200px-Ariane_5ES_with_ATV_4_on_its_way_to_ELA-3.jpg">@wikipedia</a></figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Time traveling tests</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Imagine we have covered the unit and integration tests for both hardware and most of the software for our machine that could potentially match any currently existing ones. What are the specific cases we should cover for our time machine? The logical cases to think of:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>1) The machine should not kill the traveler: We should insert some devices to measure that the cabin of the machine is livable. Also, keep in mind for the rest of the tests, that usually spaceships are first tested with robots inside, rather than humans.  (Security test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>2) There must be some ways of safe interrupting the process (risk assessment/testing): In case anything wrong happens, what's the risk involved for the passenger? (Security test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>3) As the machine goes forward or backwards, the traveler state stays while the surrounding world changes: We could measure this by introducing some other object before that we know it decays and checking how long time it has passed in the machine. (Usability test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>4) There is a way to return: I assume we will want this, so we should test it. (Security test?)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>5) Performance tests: how many times it can go backwards and forward in time? (Performance but also, regression test?)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>6) What is the minimum time that can travel? (test it) If the time machine requires a rapid negative speed (as the video above suggested as one of the possibilities), I imagine traveling in time as playing billiard or golf. Let me explain: When you try to position a ball on a particular hole, you need to give it the right original impulse (not too much, not too little) but also the right angle depending on the starting point. We are likely to travel space as well as time, so it might be particularly difficult to stop on a particular moment or place. (Which may explain why nobody made it to <a href="https://www.livescience.com/42363-would-time-travelers-leave-online-traces.html">the time travelers party</a>) (Usability test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1882,"width":495,"height":329,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/billiard-balls-2017868-1.jpg?w=1024" alt="" class="wp-image-1882" width="495" height="329" /><br />
+<figcaption>Photo by <strong><a href="https://www.pexels.com/@tomaz-barcellos-999425?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Tomaz Barcellos</a></strong> from <strong><a href="https://www.pexels.com/photo/billiard-balls-2017868/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Pexels</a></strong></figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>7) Test boundaries scenarios: go back to start of the earth (or universe) and forwards to its end. What happens if just before or just after? Does time always exist? Can we travel to a point there is no time? Technically these should be tests we would like to do, but I think they are probably not doable, realistically speaking (can I use this expression in this context?) </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>8) Try to change a small thing in the past...does it change the future? If a change makes a parallel universe, then we should not ever recover the machine. If we test this, we should look for an event we can easily undo (like maybe turn a light on/off?) (Exploratory test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>9) Time traveler meeting same time traveler. Test paradoxes. (Exploratory test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>11) Test placing a box where the machine is positioning before a trip. Then take the box away, position the machine on that same spot and test traveling to before we positioned the box. Does the box o machine break? (Integration test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>12) Test traveling to when the box is still in place; do the machine or the box break? (Integration test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>13)  Try to travel twice to the same exact time and place. (Integration test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>14) Could the machine travel between different universes? (If we have a way of doing so, which might be more likely if we are using wormholes for the trips than negative speed) (Integration test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1879,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/wormhole-600x315.jpg?w=600" alt="" class="wp-image-1879" /><br />
+<figcaption> From <a href="https://futurism.com/physicists-say-theyve-figured-out-how-spacecraft-could-make-it-through-a-wormhole">futurism.com</a> (and an interesting article)</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>15) Is there a maximum/minimum size of the machine? If so, test them. (Boundary test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>16) Can everybody use the machine or only qualified people? (Accessibility test)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Conclusion:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Maybe we have already invented a time machine but kept it secret because it is dangerous. Or maybe we have gone back in time to stop ourselves from inventing it, creating a parallel universe and as a result, our universe is the one in which such machine was never invented (time version of the <a href="https://www.youtube.com/watch?v=8wa1l7M5gU8">Fermi paradox</a>)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Whichever the answers to these questions, I hope you've found this exercise fun and enjoyed reading this post as much as I enjoyed writing it. Let me know if you can come up with more tests we could do to the time machine (if we were to have one). I will resume my serious posts soon, they will be... well... another story.</p>
+<p><!-- /wp:paragraph --></p>

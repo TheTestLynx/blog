@@ -1,0 +1,63 @@
+---
+layout: post
+title: 'Automating the automation: Dealing with dynamic objects IDs'
+date: 2017-06-21 10:11:41.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- HandsOn
+tags:
+- automation
+meta:
+  _oembed_time_2efef8bdc51b2a0161a03a9606866967: '1500845670'
+  _publicize_job_id: '6335273600'
+  _rest_api_client_id: "-1"
+  _rest_api_published: '1'
+  _oembed_2efef8bdc51b2a0161a03a9606866967: <div class="embed-ted"><iframe src="https://embed.ted.com/talks/maurice_conti_the_incredible_inventions_of_intuitive_ai"
+    width="500" height="282" frameborder="0" scrolling="no" webkitAllowFullScreen
+    mozallowfullscreen allowFullScreen></iframe></div>
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2017/06/21/automating-the-automation-dealing-with-dynamic-objects-ids/"
+---
+<p>As testers, we sometimes find that developers don't take testing into account while writing the system and design things that are very difficult for us to test. I've some experiences about it that I would like to share in case they help or inspire you.</p>
+<h3>Localised ID's</h3>
+<p>A developer on my team was once tired of redeploying many times to rename objects because of business decisions. He decided to put into place a system to store the objects so people from localisation and internationalisation could change the text themselves without need of redeployment from his side.</p>
+<p>It sounds like a great idea, but the issue was that the id's were also on that table, and the people that were on charge of translating the text, would also translate those ID's without understanding what they were for.</p>
+<p>What was before me, was a set of localised pages that "most of the times" would work.</p>
+<p>In this case, the solution I did was to check the developer's code to understand how he was retrieving those objects and do the same from my code.</p>
+<h3>Automatic object creation</h3>
+<p>Another case of dynamic objects Id's that I've seen is when the developers would create an automatic number of items dynamically on the page. In this case, the objects were created always with id's that didn't really identify what object they were, but would follow an structure.</p>
+<p>For example, if they populate a list of users based on an input, each of them could have an id on the sort of "id_1, id_2, id_3..." (at least they had id's).</p>
+<p>Before me, they were doing manual tests because "it was not something we could automate".</p>
+<p>For this case, what I did was searching for id's in the page. Something like this:</p>
+<p>[code language="csharp"]<br />
+boolean caseExit = false;</p>
+<p>int i=0;</p>
+<p>while (!caseExit)</p>
+<p>{</p>
+<p>if (getObject(&quot;ID_&quot; + i++).exits)</p>
+<p>// do something</p>
+<p>else</p>
+<p>caseExit = true;</p>
+<p>}[/code]<br />
+The "do something" part could be many things. For example, we could check that all the users had a certain property.</p>
+<p>If your "exists" throws an exception you might need a try-catch instead of if statement in here.</p>
+<p>An important note: <strong>do this if you are not able to retrieve the objects somehow else</strong>. For example, if what you have is a table you can easily access the different rows as long as the table has an id (you don't need ID per row). It could also be similar if this is an html list.</p>
+<p>The problem is when you have a serie of new unrelated objects. Moreover, if this is the case for all the objects in the page (they auto populate them all somehow), maybe auto-creating the page would help better for the case (explained on my previous post).</p>
+<h3>Angular/react dynamism</h3>
+<p>With introduction of JIT (a great article explaining here: <a href="http://buff.ly/2qFL28g">buff.ly/2qFL28g</a>) the browsers could start handling more dynamism in their websites. AngularJS (insert increasing version number here), ReactJS or VueJS are examples of frameworks that allow for this to happen.</p>
+<p>But, as these frameworks started to get popular, some other tools were also created that would allow us to deal with this new dynamism. For example, AngularJS team created Karma, which is a NodeJS application that allows you to input your tests in the command line and aligns well with Jasmine and others tools for testing.</p>
+<p>For end to end, you could check tools like protractor, nightwatchjs and testcafe.</p>
+<p>There are many frameworks, extensions and customisations in the open source community. They are starting to move almost as fast as the front end tools (The frustration on front end is very nicely explained in this post: https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f )</p>
+<p>Each of them would be tailored for a particular case scenario, so if you are building a framework you need to do a good research first, and ask many questions to your team.</p>
+<h3>POM for dynamic objects</h3>
+<p>Many people start forgetting about page object design pattern when they start automating on dynamic objects. However I would recommend you still incorporate it as much as you can because it really helps maintaining a clean code and reducing the time to write it.</p>
+<p>Even if you have a lot of tests, you usually don't have the time resources to execute every single one of them. For this, you need to decide what test to run, and this could also be a difficult, repetitive and automate-able process. But that's...well...another story.</p>

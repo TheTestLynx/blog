@@ -1,0 +1,215 @@
+---
+layout: post
+title: Automating test case decision (using AI in testing part I)
+date: 2018-05-06 14:25:47.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- AI
+- HandsOn
+- Thoughts
+tags: []
+meta:
+  _oembed_2efef8bdc51b2a0161a03a9606866967: <div class="embed-ted"><iframe src="https://embed.ted.com/talks/maurice_conti_the_incredible_inventions_of_intuitive_ai"
+    width="500" height="282" frameborder="0" scrolling="no" webkitAllowFullScreen
+    mozallowfullscreen allowFullScreen></iframe></div>
+  _oembed_time_2efef8bdc51b2a0161a03a9606866967: '1500845831'
+  _oembed_6b863646313ee35bf8d76355818cb85b: "{{unknown}}"
+  _oembed_9d1f5c578c1256690627f40f748fd1d3: "{{unknown}}"
+  _oembed_6ece9f3342cf6a80d615ead662acc535: <div class="embed-ted"><iframe src="https://embed.ted.com/talks/maurice_conti_the_incredible_inventions_of_intuitive_ai"
+    width="680" height="383" frameborder="0" scrolling="no" webkitAllowFullScreen
+    mozallowfullscreen allowFullScreen></iframe></div>
+  _oembed_time_6ece9f3342cf6a80d615ead662acc535: '1500847258'
+  _oembed_7a90ad0fa0dc04a2e90e126fd62fa61f: "{{unknown}}"
+  _oembed_5cddc0adf76355e2bdfd1cd7b392a8fd: "{{unknown}}"
+  _rest_api_published: '1'
+  timeline_notification: '1525616751'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '17546642701'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2018/05/06/automating-test-case-decision-using-ai-in-testing-part-i/"
+---
+<h2>1. The problem (and possible actions):</h2>
+<p>While testing, we need to decide carefully what test cases we will create, maintain, remove and execute per deployment.</p>
+<p>Imagine that you join a company and get handled over a long list of test cases. You know absolutely nothing about them and you need to decide which ones to use for production (you have a time restriction of 10 minutes to execute them). What would you do?</p>
+<ol>
+<li>Try to understand which of the existing tests are needed and decide manually which ones to run:
+<ol>
+<li>Check the priority of these test cases. Unfortunately, not many people review the priority of the test cases, so you can have obsolete test cases that are still marked as high priority but might be covered by other tests or the original functionality no longer be in place.</li>
+<li>Check the creation date. However, sometimes, an old test case might still make sense or be important.</li>
+<li>Ask the existing testers. Although, sometimes they have moved out of the company by the time you join and if not, things change so quickly that they might not be able to help anymore.</li>
+</ol>
+</li>
+<li>Scrap it all and start over. I think this is a drastic solution, it might work out, but you might be wasting time re-doing something that might already be working fine.
+<ol>
+<li>You could decide to just test the latest feature and not do any regression (trusting that the system was well enough tested before)</li>
+</ol>
+</li>
+<li>Spend days learning about the features, executing all the test cases and figuring out what tests what and which tests you need to re-do. It's a very analytic approach, but you are not likely to have the time for this, even if you have a lot of resources to execute them in parallel (which you should try to do). Also, maybe you need to refactor some of them, so you still need to do a selection.
+<ol>
+<li>You could decide to leave comprehensive test for after deployment and only focus on a small set of features before that.</li>
+<li>You could do the deployments at hours where the load is small and do them more often (although this is generally painful for the team)</li>
+</ol>
+</li>
+<li>Use new technologies to figure out which test cases to run (for example AI).</li>
+<li>Mix and match: Implementing point 4 on its own could be tricky. The best would be to mix it out with the others, analyzing and reviewing test cases, selecting higher current priorities, executing them in parallel to verify the percentage of success, eliminating test cases that don't make sense anymore or that constantly fail...</li>
+</ol>
+<p>As lynx, we are curious animals and we tend to ask many questions to understand the system. For example, some of the questions you could ask are:</p>
+<ul>
+<li>How often are the iterations of the projects? If there are fast iterations, chances are that old test cases are not needed anymore.</li>
+<li>How long do we have to verify a build?</li>
+<li>Are the technologies from development changing? If they are, it would be a good moment to change on testing too, and point 4 could be a good solution here. I think it's always good to have similar technologies between development and testing so both teams feel aligned and can help each other in a better way.</li>
+<li>Do you have available testers in the company to whom to ask about the recent features and tests? If so, you can start with 3 adding up to 1 and 2 (so you don't bother people with silly questions).</li>
+<li>Is priority aligned within the company? Is priority per build or per feature? Is there a clear list of features per build? Is there a clear way of tracking which old features might be affected by the new ones?</li>
+</ul>
+<p>It's important is to balance well the test cases to get as many defects as possible and as early as possible, and also to ensure there is no overhead on the process.</p>
+<p>Some tests can create false failures or be not reliable. Also, I'd like to highlight that sometimes writing tests takes too long or needs too many resources and some testers would write those test for the sake of ticking the "automated" box. That is not a good practice, be careful with these.</p>
+<h2>2. Understanding the process (how do we test)</h2>
+<p>Every time we want to automate anything (in this case we want to automate human decisions), we need to think about the manual way of doing it: When, as human, we decide which test cases to execute, what are we basing our decisions on? We want to check priority (of test cases and feature) and creation date. We might also take into account the severity of the test and feature (how costly would it be to fix a defect related with those). Another thing could be to look at previous runs and check how many times has this test case been failing or how many defects have raised already.</p>
+<p>Note that the measures themselves are also estimated – it is important to have a good process in terms of the estimation. The first thing is to clean up the test cases and the system (process) itself. Having good documentation around when something is considered high priority or high severity could help out when aligning the system across the team or the company.</p>
+<p>The second thing we need to do for automating tests decision is to decide which variables we are going to take into account for our system. Some of the above mentioned could actually measure the same thing. Having a short and clear number of variables is essential in order to build a correct system, since the more variables the more complicated the system would be and the longer it would take for it to make decisions.</p>
+<p>An example or two variables that could be measuring the same thing could be the priority of the test case and the priority of the feature, if the system is well assigned.</p>
+<p>There are tools and algorithms thought to identify automatically which variables are actually more important for the data or what sort of relationship there are among them, as this is sometimes not obvious for a human. Just have this in mind when creating your system (as this is usually topic 1 in any machine learning related book).</p>
+<h2>3. What's AI</h2>
+<p>In order to automate these decisions, we could make use of one of the technologies that is being trending recently because of the new systems being able to compute it faster and the creation of better algorithms: Artificial intelligence.</p>
+<p>According to <a href="https://en.wikipedia.org/wiki/Arthur_Samuel">Arthur Samuel</a> in 1959, Artificial intelligence gives "computers the ability to learn without being explicitly programmed."</p>
+<p>Artificial intelligence is a big area, and there are many ways we could use it to help with testing.</p>
+<p>Note also, that this is not a simple topic and there are many people who have dedicated their entire careers to artificial intelligence. However, I am simplifying it as much as possible since I'm taking this as an introduction and overview.</p>
+<p>For this story, I am going to focus in using artificial intelligence to decide among test cases. I found two interesting ways of doing this. The first one is called "rule based system".</p>
+<h2>4. Rule based system:</h2>
+<p>A rule based system is a way to store and manipulate knowledge to interpret information in a useful way. For us, we would like to use fixed rules in order to get an automatic decision of if we want to execute our test case or not. Imagine this as if you wanted to teach it to a newbie who needed your logic to be written down in notes.</p>
+<p>For example: If risk is low and priority is low and test case has run at least once before, then do not run the test case. This rule would not act on its own, but mixed with a long list of rules written in this style (which is related to logic programming, in case you want to learn more about it). The group of rules is called "knowledge base".</p>
+<p>In this system, there is no automatic inference of the rules (which means that they are given by a human and the machine does not guess them). But there are some cycles that the machine goes through in order to make a final decision:</p>
+<ol>
+<li>Match: The first phase would try to match all the possible rules with each test case creating a conflict set with all satisfied rules.</li>
+<li>Conflict-Resolution: One of the possible rules is chosen for execution for that test case. If no rules are satisfied, the interpreter halts.</li>
+<li>Act: We mark the test cases as execute or not execute. We then execute and can return to 1 as the action have changed the property of the tests (last executed, passed or failed...)</li>
+</ol>
+<p>&nbsp;</p>
+<h2>5. Fuzzy logic - hands on:</h2>
+<p>If you ask experts to define things like 'high priority', 'new test case' or 'medium risk', they probably will not agree among them. They can agree that a test case is important, but when exactly are they marking it with priority 3 or 2 or 1 (depending on your project's scale) would be a bit more difficult to explain.</p>
+<p>In a fuzzy system, such as our, we define things with percentages and probabilities.  If we gather the information of the particular definitions for a variable, we will find it follows a specific function, such a trapezoid, triangle or Gaussian.</p>
+<p>Imagine that we asked a lot of experts and come up with the example below:</p>
+<p>Let's define 'low' as a trapezoidal function starting on the edge (minimum value) and travelling to 20 and 40.</p>
+<p>'Medium' would be the same function on the points 20, 40, 60, 80 (note that they overlap)</p>
+<p>'High' shall be 60, 80 and maximum value.</p>
+<p>The graph would represent our system as such:</p>
+<p><img class="alignnone size-medium wp-image-1548" src="{{ site.baseurl }}/assets/fuzzylowmedhi.png?w=480" alt="fuzzylowmedhi" width="240" height="300" /></p>
+<p>If we decide on the variables (for example 'priority') and definitions (also called labels, for example, 'low'), the functions that compose those labels (as the graph above) and the rules among the variables, we should be able to implement a system that would decide for us if we should run a test or if it is safe to go without it. Let's do so!</p>
+<p>After a bit digging for a good C# library to implement this sort of things (maybe using F# would have been easier), I came across: <a href="http://accord-framework.net">http://accord-framework.net</a> which seems to be a good library for many AI related implementations. We can install its NuGet Package with visual studio.</p>
+<p>The first thing we need to do is define a fuzzy database to keep all these definitions:</p>
+<p>[code language="csharp"]Database fdb = new Database();[/code]</p>
+<p>Then we need to create linguistic variables representing the variables we want to use in our system. In our case, we want to look at priority, risk, novelty of test case and pass-failure rate. Finally, we will like to define a linguistic variable to store the result, that we are calling 'mark execute'.</p>
+<p>[code language="csharp"]<br />
+ LinguisticVariable priority = new LinguisticVariable("Priority", 0, 100);<br />
+ LinguisticVariable risk = new LinguisticVariable("Risk", 0, 100);<br />
+ LinguisticVariable isNew = new LinguisticVariable("IsNew", 0, 100);<br />
+ LinguisticVariable isPassing = new LinguisticVariable("IsPassing", 0, 100);<br />
+ LinguisticVariable shouldExecute = new LinguisticVariable("MarkExecute", 0, 100);<br />
+// note on the last one that the name of the variable does not have to match the name for the rule,<br />
+//      which is the string literal that we are assigning it<br />
+[/code]</p>
+<p>After that, we define the linguistic labels (fuzzy sets) that compose above variables. For that, we need to define their functions.</p>
+<p>For demonstrative purposes, let's say that we have the same definitions for low, medium and high for priority and risk. For novelty, pass rate and mark execute, we are going to define a yes/no trapezoidal function. Note that we cannot use 'no' as it is a 'reserved word' for the rule specifications (more below), so we would call it 'DoNot'. The yes/no function graph that we are using looks like this:</p>
+<p><img class="alignnone size-medium wp-image-1549" src="{{ site.baseurl }}/assets/fuzzyyn.png?w=480" alt="fuzzyyn" width="240" height="300" /></p>
+<p>[code language="csharp"]</p>
+<p>// defining low - medium - high functions<br />
+TrapezoidalFunction function1 = new TrapezoidalFunction(20, 40, TrapezoidalFunction.EdgeType.Right);<br />
+FuzzySet low = new FuzzySet("Low", function1);<br />
+TrapezoidalFunction function2 = new TrapezoidalFunction(20, 40, 60, 80);<br />
+FuzzySet medium = new FuzzySet("Medium", function2);<br />
+TrapezoidalFunction function3 = new TrapezoidalFunction(60, 80, TrapezoidalFunction.EdgeType.Left);<br />
+FuzzySet high = new FuzzySet("High", function3);</p>
+<p>// adding the labels to the variables priority and risk<br />
+priority.AddLabel(low);<br />
+priority.AddLabel(medium);<br />
+priority.AddLabel(high);<br />
+risk.AddLabel(low);<br />
+risk.AddLabel(medium);<br />
+risk.AddLabel(high);</p>
+<p>// defining yes and no functions<br />
+TrapezoidalFunction function4 = new TrapezoidalFunction(10, 50, TrapezoidalFunction.EdgeType.Right);<br />
+FuzzySet no = new FuzzySet("DoNot", function4);<br />
+TrapezoidalFunction function5 = new TrapezoidalFunction(50, 90, TrapezoidalFunction.EdgeType.Left);<br />
+FuzzySet yes = new FuzzySet("Yes", function5);</p>
+<p>// adding the labels to novelty (isNew), pass rate (isPassing) and markExecute (shouldExecute)</p>
+<p>isNew.AddLabel(yes);<br />
+isNew.AddLabel(no);</p>
+<p>isPassing.AddLabel(yes);<br />
+isPassing.AddLabel(no);</p>
+<p>shouldExecute.AddLabel(yes);<br />
+shouldExecute.AddLabel(no);</p>
+<p>// Lastly we add the variables with the labels already assigned to the fuzzy database defined above</p>
+<p>fdb.AddVariable(priority);<br />
+fdb.AddVariable(risk);<br />
+fdb.AddVariable(isNew);<br />
+fdb.AddVariable(isPassing);<br />
+fdb.AddVariable(shouldExecute);</p>
+<p>[/code]</p>
+<p>That was a bit long, still with me? We are almost done.</p>
+<p>We have defined the system, but we still need to create the rules. Next step is creating the inference system and assigning some rules.</p>
+<p>Note that for this implementation the rules are not weighted. We can make it a bit more specific (and complicated) assigning weight to the rules to denote their importance.</p>
+<p>Also, note that these rules are defined in plain English, making it easier for the experts and other players on the project to contribute to them.</p>
+<p>[code language="csharp"]<br />
+InferenceSystem IS = new InferenceSystem(fdb, new CentroidDefuzzifier(1000));</p>
+<p>// We are defining 6 rules as example, but we should take them from experts on the particular system. The rules don't necessarily need to work out for every system.<br />
+IS.NewRule("Rule 1", "IF Risk IS Low THEN MarkExecute IS DoNot");<br />
+IS.NewRule("Rule 2", "IF Priority IS High OR Risk IS High THEN MarkExecute IS Yes");<br />
+IS.NewRule("Rule 3", "IF Priority IS Medium AND IsPassing IS Yes then MarkExecute IS Yes");<br />
+IS.NewRule("Rule 4", "IF Risk IS Medium AND IsPassing IS DoNot THEN MarkExecute IS Yes");<br />
+IS.NewRule("Rule 5", "IF Priority IS Low AND IsPassing IS Yes THEN MarkExecute IS DoNot");<br />
+IS.NewRule("Rule 6", "IF IsNew IS Yes THEN MarkExecute IS Yes");</p>
+<p>[/code]</p>
+<p>Finally, we need to set the actual inputs or values from the tests. The ideal scenario would be that we retrieve them from a file. We could automate the extraction of the variables of our tests into this file from our test case database.</p>
+<p>For this example we are typing the values directly. Let's think of a test case with low priority (20% low), low risk, quite new (is 90% new) and with low passing rate (since it is new, that makes sense). This would be defined as this:</p>
+<p>[code language="csharp"]<br />
+IS.SetInput("Priority", 20);<br />
+IS.SetInput("Risk", 20);<br />
+IS.SetInput("IsNew", 90);<br />
+IS.SetInput("IsPassing", 10);</p>
+<p>[/code]</p>
+<p>If we want to define a test case with high priority and risk, old and with high passing rate, the variables would look something like this:</p>
+<p>[code language="csharp"]<br />
+ IS.SetInput("Priority", 90);<br />
+ IS.SetInput("Risk", 90);<br />
+ IS.SetInput("IsNew", 10);<br />
+ IS.SetInput("IsPassing", 90);</p>
+<p>[/code]</p>
+<p>For now, let's get the outputs directly on the console. It would look like this:</p>
+<p>[code language="csharp"]<br />
+try<br />
+{<br />
+float newTC = IS.Evaluate("MarkExecute");<br />
+Console.WriteLine(newTC);<br />
+Console.ReadKey();<br />
+}<br />
+catch (Exception e)<br />
+{<br />
+Console.WriteLine("Exception found: " + e.Message);<br />
+Console.ReadKey();<br />
+}</p>
+<p>[/code]</p>
+<p>The result of passing the first test case to this system is that we should execute it with 49.9% of security and for the second we get 82.8%.</p>
+<p>After playing around for a while with this particular set of rules, I'd say that the system is a bit pessimistic and plays a bit too safe. It's hard to get values under 50% (which we could assume it's safe not to execute those test cases).</p>
+<h2>6. Rule based system - conclusions:</h2>
+<ul>
+<li>An expert / experts are needed to specify all the rules (we might influence the system. In the example above, I'm making the system too safe)</li>
+<li>These rules won’t automatically change and adapt; we need to add new rules if the situation changes</li>
+<li>The rules are hard to define: shall we always run all the cases when risk is high and feature is old?</li>
+<li>Fuzzy definitions and fuzzy results make the system a bit complicated to understand and, again, to define</li>
+<li>There could be relationships between the variables that are not obvious to us</li>
+<li>We need to parse the test case variables in order for them to make sense in the system (a bit more of automation)</li>
+</ul>
+<p>The problem about a human deciding the rules and the variables is that some of these variables could be measuring the same things or relate to each other without it being obvious to us.</p>
+<p>An example could be: when a feature is new and the risk is high there might be a low probability of the test case to fail, so we might not need to execute it. This could happen because, knowing that the risk is high, developers might put more efforts on the code. (Note: This is hypothetical, not necessarily the case)</p>
+<p>That is why, while it is important to analyse as many variables as possible, we still need to get a compromise and try not to fall on these cases, for which we need the experts... or a system to discover automatically the importance of the variables. But this is...well...another story.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

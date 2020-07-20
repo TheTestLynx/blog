@@ -1,0 +1,146 @@
+---
+layout: post
+title: Concurrency and parallelism in testing
+date: 2020-05-08 04:10:45.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags:
+- concurrency
+- paralellism
+- Thoughts
+meta:
+  _publicize_job_id: '44192844127'
+  timeline_notification: '1589382500'
+  _oembed_f8a6fc5c428fcd9bc6857d1c96d2a884: "{{unknown}}"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2020/05/08/concurrency-and-parallelism-in-testing/"
+---
+<p><!-- wp:paragraph --></p>
+<p>There are some concepts that people pay extraordinary attention to while developing, but they tend to go under the radar for testing. I believe this is the case for concurrency and parallelism. In this post I'd like to review them and discuss their importance in the testing area.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Running your tests in parallel:</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>This means execute several tests at the same time in different machines. Sometimes this is run in an external location (for example in "<a href="https://azure.microsoft.com/en-us/overview/what-is-the-cloud/">the cloud</a>" - which is basically a group of physical computers placed on several undisclosed locations) </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Could you do run tests at the same time in the same machine? Technically, if you have multiple processors, then they might run at the same time for your tests, but it's not a given. Sometimes, for machines with several processors, you would need to specify their exact use while writing your code. If that's the case, our code would get too complicated and machine dependent, which wouldn't be ideal.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/pexels-photo-325229.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt="" /><br />
+<figcaption>Photo by <strong><a href="https://www.pexels.com/@artunchained?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Manuel Geissinger</a></strong> from <strong><a href="https://www.pexels.com/photo/interior-of-office-building-325229/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Pexels</a></strong> - This is a server room, which is basically a room full or computers without screens. When the use of these are allowed externally and interconnected globally, this is called 'the cloud'</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Concurrency: what is it and why would you need it?</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>You may be thinking: "hold on your lynx, I've run tests in parallel in my same machine and they worked as a charm". To what I reply: how are you so sure that they were actually executing in parallel and it's not an "illusion" from your machine? Computers tend to be very good at giving the impression that things are done at the same time: you can move the mouse and watch a video and one thing does not interfere the other. But that does not mean that is happening this way, the processor just switches between them so quickly or eyes don't realise about it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Concurrency happens when something <strong>appears </strong>to run at the same time as something else. This is what you could be experiencing if you run tests in "parallel" in your machine. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Even thought this concept might seem far from the testing world, as many applications are developed with this at their core, there are many errors that could be caused by it. Therefore, we should always be aware and try things that could potentially cause them. When some error seems hard to reproduce and almost random, suspect there could be some concurrency issue happening (or parallel, if more machines are involved such as  servers). </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>The importance of independent tests</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>In order to achieve parallelism, you need to make sure that the tests are not going to interfere each other. Let's see an example below:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><span style="text-decoration:underline;"><span class="has-inline-color has-vivid-cyan-blue-color">Test 1</span></span></em>: "Item can be added to shopping cart" : adds a item to shopping cart. Verify cart has a item.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><span style="text-decoration:underline;"><span class="has-inline-color has-vivid-red-color">Test 2</span></span></em>: "Item can be removed from shopping cart": adds a item to the shopping cart and removes it. Verify the cart is empty.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Can you figure out what issues could be caused by these two tests if they were to be executed at the same time? If the shopping cart is shared across the tests, the timing of execution could make one or both tests fail randomly. It is very important that tests provide an unique value and that value is the same under the same circumstances and every time the test is executed. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For better tests, we might check if the value is in the cart or not, rather than if there are more values in the cart. Also, consider what would happen if two tests of the same type execute in parallel (two people pressed the run button). For example, consider the following execution of the two tests before called twice (1.1 and 1.2 are two execution of the same test 1 from above):</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><span class="has-inline-color has-vivid-cyan-blue-color">Test 1</span></em><span class="has-inline-color has-vivid-cyan-blue-color">.1</span>: adds item.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><span class="has-inline-color has-pale-cyan-blue-color">Test 1.2</span></em>: adds item.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-cyan-blue-color">Test 1.1</span>: verifies it's in the cart. Removes it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-pale-cyan-blue-color">Test 1.2</span>: verifies is in the cart (there were two of them, so it is) and removes it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Unless there are issues on remove (which should have its own test) everything should work as before. However, what about our other test (test 2) executed twice:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-red-color">Test 2.1:</span> adds item to cart.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-luminous-vivid-orange-color">Test 2.2</span>: adds item to cart.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-red-color">Test 2.1</span>: removes item. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-red-color">Test 2.1</span>: Check if the item was removed. <span class="has-inline-color has-vivid-red-color">Fails</span>!! (There is still one item there)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-luminous-vivid-orange-color">Test 2.2:</span> Continues and passes.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/shopping-4974313_1280.jpg" alt="" /><br />
+<figcaption>From <a href="https://pixabay.com/users/Alexas_Fotos-686414/">https://pixabay.com/images/id-4974313/</a> - This seems to be the most wanted shopping item of 2020, and we've just added too many of them to the cart.</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>A solution could be to verify the number of items before removing, but even so, you are not guaranteed that another test would not add another one right after you checked. For this, you might want to add unique values of items per test execution (the items might be stored on a database under a unique ID)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If uniqueness couldn't be implemented this way, maybe you could have a method to get items from a list based on your IP and execution time, so items would be picked at random and it would be more secure (although this still does not guaranteed independence). </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Another way of implementing uniqueness is to use different users per execution (so your shopping cart is unique to your test case), but you might have a restriction on your number of test users and you might need a way of orchestrating them across test executions. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Finally, you could use some sort of orchestration on the test execution to make sure nobody else executes this test at the same time as you. The right solution depends highly on the implementation of your app and your testing platform.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Lastly, you should be careful with methods like "initialise" and "cleanup" to arrange circumstances like this as well. These methods should be used for common repeated operations among tests such as variable initialising, not to perform tasks as to deleting all values from the shopping cart.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Dependencies on testing</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Sometimes we might need to deal with dependencies on testing. I'm not talking about: "always execute test 1 before test 2". That's probably a really bad idea that you should avoid. But what if you need to communicate two tests? Imagine you are testing a chat platform and need to test the following feature:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-cyan-blue-color">Friend 1</span>: opens chat. says hi</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-red-color">Friend 2</span>: should see a new chat with hi. Sends received</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><span class="has-inline-color has-vivid-cyan-blue-color">Friend 1</span>: sees received.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/pexels-photo-230554.jpeg?cs=srgb&amp;dl=blur-car-cellphone-contemporary-230554.jpg&amp;fm=jpg" alt="" /><br />
+<figcaption>Photo by <strong><a href="https://www.pexels.com/@romanp?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Roman Pohorecki</a></strong> from <strong><a href="https://www.pexels.com/photo/blur-car-cellphone-contemporary-230554/?utm_content=attributionCopyText&amp;utm_medium=referral&amp;utm_source=pexels">Pexels</a></strong> </figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this case, you should orchestrate everything from within a test, and make sure that if you run the same test twice, it wouldn't interfere with itself. There are many ways in which you could do all of this, but that’s… well… another story…</p>
+<p><!-- /wp:paragraph --></p>

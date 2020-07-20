@@ -1,0 +1,67 @@
+---
+layout: post
+title: 'Hands on: Using Ranorex to automate scratch'
+date: 2015-03-09 07:25:58.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _wpas_skip_facebook: '1'
+  _wpas_skip_google_plus: '1'
+  _wpas_skip_twitter: '1'
+  _wpas_skip_linkedin: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _publicize_pending: '1'
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2015/03/09/hands-on-using-ranorex-to-automate-scratch/"
+---
+<p>Lynx are quite curious animals (they are felines after all) and this is as well a shared quality with testers. We want to understand how things work, we want to break stuff so we can recreate and improve it... we like "phoenixizing" programs.</p>
+<p>The best way of finding out the quality of a program is to stand in the end user's feet.</p>
+<p>There are many type of testing, but my favourite one is the user interface testing (also known as functional testing). In this type of testing we use the application in several ways, with the most likely behaviour of the user and risky areas as priority, to find out defects on it. As you can imagine, manually testing the same buttons of an application could be quite time consuming and it will be difficult to regress (retest). That's the reason we use automation for it (I'll explain an example later on). Since I don't know (or mind) if you have developing experience, I will divide this post in two parts: On the first part I will explain how to use scratch to develop a simple program that may be difficult to test manually. On the second part, I will explain how to use Ranorex to automate the previous program. Let's get started!</p>
+<p><strong>PART 1: Scratch developing.</strong></p>
+<p>Scratch is a simple tool for start developing, in which you can develop interesting applications just it by dragging and dropping easy sentences. The first time I used it was in coder dojo about a year ago (maybe more?). Scratch website (http://scratch.mit.edu) has many examples and tutorials, but you should be able to reproduce this simple program by following these steps (picture in Spanish version):<a href="https://thetestlynx.files.wordpress.com/2015/02/scratch-creation.png"><img class=" size-medium wp-image-27 aligncenter" src="{{ site.baseurl }}/assets/scratch-creation.png?w=300" alt="Scratch creation" width="300" height="197" /></a></p>
+<ol>
+<li>Go to the scratch website (http://scratch.mit.edu )</li>
+<li>Click on "create" on the top (or on the cat icon)</li>
+<li>You should register on the top right in order to upload your project for testing (optional)</li>
+<li>Click on events</li>
+<li>Drag "on click this element" to the coding area</li>
+<li>Click on movement</li>
+<li>Drag "bounce if hit corner" and "move 10" under the previous instruction ensuring that the instruction stick together</li>
+<li>Change the name and share it.</li>
+</ol>
+<p>I saved the program above here: http://scratch.mit.edu/projects/48422496/</p>
+<p>What does this program do? It moves a cat (called sprite) 10 pixels every time the user clicks on it. If it reaches a corner it supposes to bounce.</p>
+<p>Can you think of anyways of testing it? It will require you to click on the cat until it reaches both corners if you want to be sure it behaves as you want to. Isn't that a bit silly? Could we make it easier to test?</p>
+<p><strong>Part 2: Using Ranorex to automate the scratch program</strong></p>
+<p>There are many ways and tools for doing UI automation on a web application. An easy way of doing so is by using a recording tool.</p>
+<p>I read about Ranorex in a testing magazine a while back. I found it quite interesting but never got the chance of working in a company that uses it so far. Therefore, I found this project perfect to give it a go, and I was not disappointed one bit. Their website: http://www.ranorex.com/</p>
+<p>Automating Scratch programs have the added difficulty of using flash objects. This is not too bad if you are coding the automation or if you can add libraries to your application, but many recording tools will fail while trying to retrieve the objects.</p>
+<p>For this example, and for teaching purposes, recording tool is indispensable.<a href="https://thetestlynx.files.wordpress.com/2015/02/recordsettings.jpg"><img class="  wp-image-18 aligncenter" src="{{ site.baseurl }}/assets/recordsettings.jpg?w=300" alt="RecordSettingsInRanorex" width="279" height="264" /></a></p>
+<ol>
+<li>I downloaded the <em><strong>trial</strong> </em>version from their website. They sent me an e-mail with instructions and followed up on it. I found that quite nice of them to do and they were very nice too. I found that it dowloads better from the .exe than from the .zip<a href="https://thetestlynx.files.wordpress.com/2015/02/recordsettings.jpg"><img class="  wp-image-18 aligncenter" src="{{ site.baseurl }}/assets/recordsettings.jpg?w=300" alt="RecordSettingsInRanorex" width="279" height="264" /></a></li>
+<li>Open "Ranorex recorder".</li>
+<li>Click the red record button, select "open a browser" and paste the url of the project. Select Internet explorer.</li>
+<li>The scratch project window will open and you will be able to start recording the clicks. Click once to activate the project and another time in the cat (sprite) <a href="https://thetestlynx.files.wordpress.com/2015/02/ranorexrecording.png"><img class="  wp-image-26 aligncenter" src="{{ site.baseurl }}/assets/ranorexrecording.png?w=300" alt="RanorexRecording" width="270" height="162" /></a></li>
+<li>Stop the recording (The stop button is in the left hand side of the screen as shown in the picture)</li>
+<li>Copy the line that clicks the sprite and paste it as many times as you need with the buttons on the top or the well known shortcuts ctrl+c and then ctrl+p. In the picture the click is the third one.</li>
+<li>Click "Turbo mode" and play and enjoy how the cat moves by itself. Feel free of eating/drinking something while the computer does your job for you ;)<a href="https://thetestlynx.files.wordpress.com/2015/02/scratch-recording.png"><img class=" size-medium wp-image-25 aligncenter" src="{{ site.baseurl }}/assets/scratch-recording.png?w=300" alt="Scratch recording" width="300" height="225" /></a></li>
+</ol>
+<p><em>Thoughts on Ranorex</em>:</p>
+<p>Pros: Quite powerful and easy to install and start using. All comes with the package and didn't need special configurations, libraries for the application... Great support!</p>
+<p>Cons: Worked like a charm for internet explorer 11, but I could not make it record in Chrome and the clicking was misplaced in Firefox. I believe they are working on improving this.</p>
+<p>I would really like to keep testing with it to have a better idea of all its capabilities. I need to keep looking for another automation tool that is open for the kids to use in coder dojo.</p>
+<p><strong><em>Conclusion</em></strong></p>
+<p>UI recording testing is a great way of quick testing the functionality of an application. There are ways of telling if the results are the expected for multiple automations without the need of looking at the output screen. However, that is... well, another story.</p>

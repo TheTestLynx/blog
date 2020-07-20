@@ -1,0 +1,241 @@
+---
+layout: post
+title: 'Automating the automation: Automating Vstest'
+date: 2019-08-21 09:56:55.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- HandsOn
+- Thoughts
+tags:
+- automation
+- examples
+- vstest
+meta:
+  _publicize_job_id: '34362691296'
+  timeline_notification: '1566381419'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2019/08/21/hands-on-automating-vstest/"
+---
+<p><!-- wp:paragraph --></p>
+<p>As part of my career, I have, on multiple occasions, found it useful to automate visual studio tests (VS tests) execution. The goal of this article is to show how to do so and why. I hope you can find it useful no matter your experience; for the experienced readers, you might get some ideas on how to use the capabilities of vstest, batch files and logs generated, setting up the basics to revisit some of the parts in the future.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you have never created or run tests in Visual Studio, take this as a starter guide on executing automation. If you have ever run Visual Studio Unit Tests, you should be familiar with the Test Explorer tool:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1699,"width":211,"height":246} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-3.png" alt="" class="wp-image-1699" width="211" height="246" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>At times, we might want to include these tests as part of a different system rather than executing them from Visual Studio. It is possible to use some existing functionality in the command line to help you doing so: <a href="https://docs.microsoft.com/en-us/visualstudio/test/vstest-console-options?view=vs-2019"><em class="">VSTest.Console.exe</em> </a>is a command-line tool to run Visual Studio tests.   </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Steps 1 and 2 are for setting up the test data of this post, feel free of skipping them if you consider them too simple. Otherwise, I hope they can help you get started with Unit test in visual studio and general automation with it.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>Disclaimer</em>: I'm explaining this from a Windows Operating System's perspective, but it could be done similarly from anywhere you could run vstest console tool.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 1: Create an unit test project</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Note: needless is to say that you need Visual Studio installed to follow these steps.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We are going to start creating a test project in Visual Studio. To do so, we can click <strong>File -&gt; New -&gt; Project</strong> and select a C# template '<strong>Test</strong>' as in the image below. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Select the destiny folder and insert a name for it. Refer to the Visual Studio documentation if you have any issues.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1695} --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/image.png" alt="" class="wp-image-1695" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 2: Create tests</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The project should come with a unit test class by default. If for some strange reason that's not the case, or you want to create another class, you can right click the Project and select <strong>Add-&gt;Unit Test</strong> (please note if you do this but you already had a class, then you might have a duplicate TestMethod1 in your list later on)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1697} --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/image-1.png" alt="" class="wp-image-1697" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now we are going to add a command inside the test that comes by default (because we are not adding test logic for now, we just add the 'Fail' command as shown below). We are also adding a Priority above this test. Then we can copy and paste the lines from [TestMethod] (line 9 in the image below) up to the last '}'  (line 14) three times to get a few tests in our test explorer. Change the names of the methods so each have a different name (for the example we have TestMethod1, TestMethod2, TestMethod3, TestMethod4.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For the example, all odd tests (TestMethod1 and TestMethod3) have priority 2 and even tests (TestMethod2 and TestMethod4) priority 1.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1702,"width":458,"height":291} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-5.png" alt="" class="wp-image-1702" width="458" height="291" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>To be able to see the test explorer we should go to the menu <strong>Test-&gt;Windows -&gt; Test Explorer.</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1703,"width":496,"height":141} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-6.png" alt="" class="wp-image-1703" width="496" height="141" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>And to be able to see the tests we have created we should go to <strong>Build -&gt; Rebuild </strong>Solution.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1704,"width":398,"height":112} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-7.png" alt="" class="wp-image-1704" width="398" height="112" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, you can try and run the tests on the left hand side. They should fail because we are not adding any logic to them. If you are interested in how to do this, leave a comment below and I'll write another article with more details on this.  You can also look up <a href="https://docs.microsoft.com/en-us/visualstudio/?view=vs-2019">the Visual Studio documentation</a> to learn more.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the next step we are going to learn how to execute the test cases outside Visual Studio.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 3: VSTest</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, if we want to execute these tests outside Visual Studio's environment we can use the console that is typically install under the following path:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><code>C:\Program Files (x86)\<strong>insert VS version here</strong>\Common7\IDE\CommonExtensions\Microsoft\TestWindow</code></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Where "insert VS version here" would be something like " Microsoft Visual Studio 14.0 " or "Microsoft Visual Studio\2017\Enterprise"... basically, you can navigate to your Program Files (x86) folder and look for a folder that has Microsoft Visual Studio within its name. Then continue with the rest of the path as above. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Inside the aforementioned folder you can find "<strong>vstest.console.exe</strong>".  Alternatively, you can download the<a href="https://www.nuget.org/packages/Microsoft.TestPlatform/"> nuget package</a> and search it in the path where it's installed.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Typically we would access this file from the command line (be it admin cmd or visual studio's native tool command prompt)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We can open cmd (as administrator, by right clicking on it) and type "<strong>cd path</strong>" where path is the path to the above file with the correct visual studio version for your installation. It is convenient that this path is surrounded by quotes (""), just in case there are spaces the program can recognise them as part of the path and not as a different command.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, you can select what type of tests to run by adding some parameters to the call, but you can test it by calling "vtest.console.exe" followed by space an the path to the dll of the test project. For example: <strong><code>vstest.console.exe c:\....\UnitTestProject1\UnitTestProject1\bin\Debug\UnitTestProject1.dll</code></strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You should see something like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1738,"width":430,"height":532} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-4.png" alt="" class="wp-image-1738" width="430" height="532" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Since you've set up your tests to fail. Later on, once your tests are finished and they are all passing you would see something like this:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1719,"width":434,"height":183,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large is-resized"><img src="{{ site.baseurl }}/assets/image.png?w=650" alt="" class="wp-image-1719" width="434" height="183" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you are new to testing, you are probably wondering why would we want to run them in this complicated way instead of using the beautiful UI from Visual Studio. If so, keep on reading, this is where things start to get interesting.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now, imagine we want to run just the first and third test method, for this we should make the following call: <strong> vstest.console.exe  pathtodll /Tests:TestMethod1,TestMethod3</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1720,"width":432,"height":147} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-1.png" alt="" class="wp-image-1720" width="432" height="147" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you can see, now only TestMethod1 and TestMethod3 were executed (you can use the names of your test methods). Note that it should be failing for you, I'm just adding the passing image because is cleaner.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Remember we setup priorities before? So how to run the tests with higher priority?  <strong>vstest.console.exe  pathtodll /TestCaseFilter:"Priority=1"</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1721,"width":437,"height":135} --></p>
+<figure class="wp-block-image is-resized"><img src="{{ site.baseurl }}/assets/image-2.png" alt="" class="wp-image-1721" width="437" height="135" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In <a href="https://docs.microsoft.com/en-us/visualstudio/test/vstest-console-options?view=vs-2019">Microsoft vstest.console documentation</a>, there are much more ways we can use this tool, including parallel runs. Have you started to see why using this tool could be very powerful? What else could we do with this?</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 4: Creating batch files</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The coolest part is that we can create a file with these calls and then, we can use that file virtually anywhere (continuous integration, night builds, as part of an agent to be executed on a remote computer...) These sort of files are called "batch files" because they run a set or batch of operations. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The first line of the batch file would be to CD into the vstest console folder. Then we can add calls to the tool for running the tests we want. Finally, we add a pause to verify that this is working fine. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To do this, just use the window's notepad and type the instructions below. When saving it, save it with .bat extension instead of .doc or .txt.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>cd C:\Program Files (x86)\insert VS version here\Common7\IDE\CommonExtensions\Microsoft\TestWindow
+vstest.console.exe pathtodll /Tests:TestMethod1,TestMethod3 /Logger:Console
+pause</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Remember to change pathtodll to your actual project and add the right VS version. Now, if you execute this newly created file (as administrator), you should see the same results as before. Pressing any letter closes the console that opens up.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you don't want to see the results in a console (as if would be happening if you integrate this file with other projects), just remove the last command (pause). The logs of the results are saved in the current folder (the one for the vstest program) and we will analyse them on the last section.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Explaining continuous integration or multi-project execution would be a bit more complicated and out of the scope of this post (but do leave a comment or reach out in Twitter if you want me to explain it). But I can explain how to set up your computer to run this file every night with Windows!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1749} --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/image-7.png" alt="" class="wp-image-1749" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>For this, you need to open the task Scheduler (you can search for it in the lower left search box on Windows). Then click on "create a new basic task"  on the right hand side and go through the assistant. The most important things are to specify the frequency you want the file to run and browse to select the saved .bat file. Now this file will be running with the indicated frequency automatically (if your computer is turned on at that time).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The next thing you want to do is to check the logs that this file has generated every time it was executed. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 5: Saving logs</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Running automatic tasks and tests is awesome, but not really useful unless we know the results so we can do something about them. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>First of all we should check where the logs are saved. Usually they are saved into a folder called "Test results" within the folder where you've run the file. Because we were using cmd (admin) and navigating to the vtests.console folder, it would be created there. In fact, that's the reason we need administrator permission to run the file. There is a parameter with to run vtest.console to change this location, although my vstest.console was not recognising it, so I stick to the vstest.console folder for the purposes of this article.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!--EndFragment-->I think trx logs are useful and should be always installed by default. To get them we can add a parameter to the vstest "<strong> /Logger:trx</strong>".&nbsp; The generated file can be opened with the notepad and it will give you information about the run tests. However, we would focus on <strong>/Logger:Console</strong> as it is simpler.</p>
+<p>Another way of retrieving the logs is by using the capabilities associated with Windows batch system. We just need to add " <strong>&gt; pathToFile\file.txt</strong>" where path to file would be the path all the way to a file with a txt extension (this file does not need to exist, you can create it with this command). This way a file will be saved with the contents of the console.</p>
+<p><!-- wp:paragraph --></p>
+<p><code>cd C:\Program Files (x86)\insert VS version here\Common7\IDE\CommonExtensions\Microsoft\TestWindow<br /> vstest.console.exe pathtodll /Tests:TestMethod1,TestMethod3 /Logger:Console  &gt; pathToFile\file.txt <br /> pause</code></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>You might want to save different files (by adding date and time) or replace the latest one (by keeping the same name as above), depending on the frequency that it is generated (if it takes long enough, we don't mind replacing it).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Using the parameter "<strong> /Logger:TimelineLogger</strong>" can give you a bit more information of the times of execution, but it will make it harder to parse later on.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Step 6: Playing with the logs</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now we have a text file with the logs...but reading all the files all the time, might be a bit boring..what to do with it? You get it, automate it!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let's output just the number of test case that have failed. We can do this with any programming language, but let's keep going with batch. Why? Because I feel people underestimate it, so here it is:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><code>@echo off<br /> set /a FAILED=0<br /> for /f %%i in ('findstr /i /c:"Failed" file.txt') do (<br />         set /a FAILED=FAILED + 1<br /> )<br /> set /a FAILED = FAILED- 1<br /> if %FAILED% gtr 0 (<br /> echo Failed: %FAILED% <br /> )<br /> pause</code></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The first line of the file allows the output to come up on the screen. Then we create a variable to save the number of times that we find the string "Failed", we perform a loop with the search over the file called "file.txt", take one out (because at the end there is a summary with the word "Failed" on it, which we don't want to count) and only if the result is greater than 0 it is printed. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When executed for the file with priority 1 test cases failing we can see this result on a console:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1751} --></p>
+<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/image-8.png" alt="" class="wp-image-1751" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If everything passes, nothing is printed for this example.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Please keep in mind that with this method, any test case that has the word "Failed" within its name will also increment the search, so this is just for demonstration purposes.  </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Maybe we would prefer to indicate as well the names of the failed test cases, or to print the last sentence on the file, which has already a summary. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We can also create some code that would send us an email if there are any failed test cases, or push the results into a graph, or send some sort of alert, or even a slack message... There are many possibilities, but they are...well...another story. </p>
+<p><!-- /wp:paragraph --></p>

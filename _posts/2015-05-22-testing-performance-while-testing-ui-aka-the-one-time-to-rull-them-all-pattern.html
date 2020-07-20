@@ -1,0 +1,47 @@
+---
+layout: post
+title: 'Testing performance while testing UI: AKA = The "one time to rull them all"
+  pattern'
+date: 2015-05-22 21:41:08.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '19803189738'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2015/05/22/testing-performance-while-testing-ui-aka-the-one-time-to-rull-them-all-pattern/"
+---
+<p>I know I have some pending stories for you, but I keep seeing something that I think is worthy to talk about. It is a very simple idea, but people usually don't use it for some reason.</p>
+<p>For the newbie lynx: Performance testing is a type of testing that we do in order to measure how well a website responds to the user input and load back an output. Sometime ago, users have to wait minutes for an image to load in their screens, there was no choice, nothing better available. Now a days, there is plenty of competition in services so one of the reasons someone can pick a service instead of another one is the speed of response. Everybody is busy after all, right? Better performance = better quality.</p>
+<p>There are many tools available to measure performance and different parts of the application to measure it (server vs client). The developer tools in the different browsers provide ways of checking how long an object has taken to load.</p>
+<p>Many companies have specific teams that are in charge of performance testing. I'm seeing this quite often, even if the developers are doing their own tests, someone else is in charge of the performance. However, it is usually forgotten that you can validate and debug <strong><em><span style="text-decoration:underline;">some</span></em></strong> of the performance problems during your UI automation (or even in your unit tests).</p>
+<p>I believe this to be a very good practice. As a testing principle, the earliest you catch the defect in the development process the cheaper it is to fix (in terms of resources and time used in regression). How can you do this?</p>
+<p>Imagine you have the following code to test that an element exists in a website (this is only pseudo-code for the newbies to understand the concept):</p>
+<p>wait(time)</p>
+<p>element = findElement(X)</p>
+<p>Now imagine that you are doing the same for another object:</p>
+<p>wait(time2)</p>
+<p>element2 = findeElement(Y)</p>
+<p>Ok. If we keep doing this all over our code, we are going to end up with a lot of different times set up for each of the objects. On top of that, if there are problems with the connection or with the servers, we would have to modify one by one the waiting methods or set up really high times. Our code has suddenly become difficult to maintain and we have no idea of how well the application is generally performing.</p>
+<p>How can we improve this in an easy way that could gives us an idea of the performance of the site? Very easy, we just use the same waiting time for all of the methods, which we set up in a constant. That way, if we have problems because of our test environments or anything on the likes, we can increase the waiting time for all the objects at once. We can also play around decreasing it so we get an idea of the minimum time a user is going to be waiting until all the objects are loaded in all the pages.</p>
+<p>constant myTime = time</p>
+<p>wait(myTime)</p>
+<p>element=findElement(x)</p>
+<p>....</p>
+<p>wait(myTime)</p>
+<p>element=findElement(Y)</p>
+<p>We can also have a different one to load the pages or specific groups of elements (for example iframes), so we have different group of restrictions. Then it is just a matter of defining what is an acceptable time for a user to wait. This will ensure that at the firsts testing phases, all objects load faster than that time. After that, it would be good that you measure the performance of your server regularly and have some communication system if it goes bellow certain threshold. You can still have performance issues because of the server resources, threading issues or management of a high amount of users, but you will catch and easily identify some basic issues by just adding this constant across your code.</p>
+<p>Disclaimer: I haven't found this in any books or anywhere (yet, I am sure I am not the first one in thinking about this). The pattern name of the title is totally made up by me.</p>
+<p>Note: usually performance tests run across systems/browsers/devices and so it is considered part of 'system testing'. But that is...well... another story.</p>
+<p>&nbsp;</p>

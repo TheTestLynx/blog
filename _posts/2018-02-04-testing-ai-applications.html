@@ -1,0 +1,74 @@
+---
+layout: post
+title: Examples of AI applications and how possibly test them
+date: 2018-02-04 15:11:24.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- AI
+- Thoughts
+tags:
+- examples
+meta:
+  _oembed_b16c3886d6cbc7e867b72775beff9a38: "{{unknown}}"
+  _oembed_788bed1a2cec4f3f5a65a08bd0ed3901: "{{unknown}}"
+  _oembed_5f98fcaf0b8b7f3c6a3c98938c69b9b9: "{{unknown}}"
+  _oembed_e5d6931707b1e7b86a43757d0a64b6ca: "{{unknown}}"
+  _oembed_3e43587689d89ab75fc276a258a1eeb3: "{{unknown}}"
+  _oembed_779ba2415564e67d9c52e543fdf8ec53: "{{unknown}}"
+  _oembed_6639144d527ee78de130cde44cb212a1: "{{unknown}}"
+  _oembed_d144254a236168c80de5bc18d54920ac: "{{unknown}}"
+  _oembed_fd76633bd077e42a39c4f077bb9c7a9c: "{{unknown}}"
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  timeline_notification: '1524310538'
+  _publicize_job_id: '17030740741'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2018/02/04/testing-ai-applications/"
+---
+<p>Recently I attended an online <a href="https://www.crowdchat.net/chat/c3BvdF9vYmpfMjY4OQ==">crowdchat </a>hosted by <a href="https://www.ministryoftesting.com">ministry of testing</a> about testing AI applications.</p>
+<p>The questions were very interesting, but it was hard to think of a right answer for all AI applications, as this is a very broad field. Explaining it over twitter would be confusing, so I thought I may as well create a post giving some examples.</p>
+<p>Kudos to someone on Twitter that mentioned supervised and unsupervised learning at the end of the chat. I was very sleepy at the time (the chat started at 4am my time) so I was not able to find his tweet in the morning to vote for it. I think that we could understand better the types of AI applications that we could have if we divide them in supervised vs unsupervised. More information <a href="https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/">here</a>.</p>
+<h2>Supervised learning examples</h2>
+<p>The idea behind it is easy to understand: These applications have a phase of learning in which we keep feeding them with data and rewarding them if they produce a correct result, while punishing them when they don't until the produced results match the expected results within a threshold. (In other words, until we are happy with the results).</p>
+<p>Let's ignore for now the exact ways in which we can punish or reward a machine and just focus on the general idea.</p>
+<p>After this learning phase, we generally just use the application and no more learning takes place. We "turn off" the learning. This is called <a href="https://blogs.nvidia.com/blog/2016/08/22/difference-deep-learning-training-inference-ai/">inference </a>phase. Not all the applications have inference phase; sometimes we want them to keep learning from the users, but this can turn out to be problematic, as we will see further on.</p>
+<p>I think these are the easiest AI applications to test functionally speaking, as we just need to pass new data and check the results obtained against the expected. Apart from this, they behave just like any other application and we can also go through the other types of testing without many changes (performance, security, system..)</p>
+<h4>NPR / OCR:</h4>
+<p>Imagine for example a number plate recognition system - once the system learns how to recognize the numbers in the license plate, you don't have to keep training it. The application can use the learned patterns to verify the new number plates.</p>
+<p>There are many tests we could think of here, without caring for how the application gets the results: try with characters that have strange typography (if allowed in the country), tilt the number plate, check the boundary in distance from the vehicle...</p>
+<p>An OCR (optical character recognition) application could also be done with this technique. In fact, the number plate recognition system could be considered as a specific type of OCR.</p>
+<h4>Digital personal assistance (Cortana, Siri, Alexa...):</h4>
+<p>Quite common nowadays, they help you find out information using voice commands. They could also use supervised learning (although, I believe the right classification for them would be "semi-supervised learning", but let's think of them as just supervised for the sake of the example). However, in this case the application keeps learning from the users. It stays in the learning phase.</p>
+<p>The reason they can 'safely' do this it is because they collect data from the users but not their direct input in whether the result was to be penalized or rewarded. An example of application getting direct input from the user to keep learning would be a chatbot that guesses something and asks if that guess was correct. This could be easily tricked by dishonest users.</p>
+<p>Applications that keep learning are much trickier to test, even functionally, as if we pass wrong inputs to test, they will learn wrong. If I had to test one of these, I would use a copy of the state of each iteration we would like to test in an isolated environment, so we don't break the acquired good learning. For performance testing it would be best to use valid data, to ensure the learning process continues well.</p>
+<p>If anybody is concerned about AI gaining consciousness, this type of applications would be the problematic one, as they could be learning things we are not aware of depending on the power that the programmer and the user gave them and the data they are able to collect. This brings up the question:<a href="https://twitter.com/TheTestLynx/status/985012639091769344"> Should testers be responsible to test consciousness?</a></p>
+<h2>Unsupervised learning examples</h2>
+<p>The key of these applications is to discover relationships on the data without direct penalization or reward. They are very useful when we are not sure of what the output should be, and to discover things that we would not naturally think of being related.</p>
+<p>There are two types: Clustering (when the system discovers groupings in data) and association (for discovering rules describing data). I won't go deep on them in this post, as it is a lot of information as it is.</p>
+<h4>Tailored content-advertising (Amazon, Netflix, Google...)</h4>
+<p>These apps want to be able to predict what the customers that bought something would be interested on next. In fact, digital personal assistance tools could also use this data to help you find what you want (that's why I mentioned before they should be classified as 'semi-supervised' learning). I cannot think of any ways of testing this except checking on the impact on the sales after the application is in place, but this could potentially be subjective to chance or other factors not related with the application itself.</p>
+<p>Apart from that, the test of the application should be the same as we already do with non-AI applications (not just the results, but how the user inputs the data and how the application responds and shows back the data...) Imagine this as a feature of a bigger product, all the other features would also need to be tested as well.</p>
+<p>The moral impact of these applications, in my opinion, is that at some point they might be telling you (as a user) what you want, even before you know you wanted it.</p>
+<h2>What could possibly go wrong?</h2>
+<p>What should we be careful about in AI that might not need so much attention in other  apps?</p>
+<p>Things could go very wrong if we leave apps learning constantly and we leave the users to provide the penalization or rewards. You probably have heard of applications such as image recognition systems and chatbots becoming racists and sexists. Sometimes this is because the test data given to the application is biased, but it could also be because of trolls playing around with the application in unexpected ways and giving rewards when the application is wrong.</p>
+<p>Also leaving apps learning on their own is not the best idea, as we do not control what they are actually learning, as mentioned before.</p>
+<p>If you are interested, I found an article with some more examples of issues with AI applications <a href="https://www.techrepublic.com/article/top-10-ai-failures-of-2016/">here</a>.</p>
+<h2>What else have you got?</h2>
+<p>Below is a list of readings that I found very interesting while researching for this post (a couple of the links are about video games and AI):</p>
+<p><a href="http://www.gamesradar.com/are-you-the-villain-in-hello-neighbor-the-ai-thinks-so-and-learns-your-tactics-to-hunt-you-down/">How "hello neighbor" game's AI works</a></p>
+<p><a href="https://futurism.com/ai-predicts-coding-mistakes-before-developers-make-them/">AI predicting coding mistakes before developers make them</a></p>
+<p><a href="https://beebom.com/examples-of-artificial-intelligence/">Examples of AI</a></p>
+<p><a href="https://www.gamasutra.com/view/news/269634/7_examples_of_game_AI_that_every_developer_should_study.php">Game examples of AI</a></p>
+<p>How would you test these applications?</p>
+<p>What do you think about the moral connotations?</p>
+<p>If used well, AI could be harmless and powerful. In fact, it could also be a good tool that we could use for automating our testing, but that's...well...another story.</p>

@@ -1,0 +1,100 @@
+---
+layout: post
+title: Automating the automation
+date: 2017-06-07 21:36:56.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- HandsOn
+tags:
+- automation
+- page-object-model
+meta:
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _publicize_job_id: '5882674273'
+author:
+  login: noemielis
+  email: noemiElis@gmail.com
+  display_name: noemi ferrera
+  first_name: ''
+  last_name: ''
+permalink: "/2017/06/07/automating-the-automation/"
+---
+<p>Have you ever find yourself writing the exact same basic tests for certain objects over and over again? With the only difference on the id or path or even the element retrieval?</p>
+<p>Wouldn't it be nice to have some way of doing this bit faster? Automation is about making your computer do repetitive tasks for you, and this can be applied to everything, including, yes, writing code.</p>
+<p>The process to automation is as follows:</p>
+<ol>
+<li>Identify repetitive tasks</li>
+<li>Write code that would do these tasks for you</li>
+<li>Identify when the code needs to be executed</li>
+<li>Execute the code or automate the execution</li>
+</ol>
+<p>In order to give an example or something being repetitive during automation, I would like to introduce the page object model. If you already know about this, maybe you should skip the next section.</p>
+<h2>Page object model</h2>
+<p>The page object, in short, it's a model for organising functional testing classes and objects so the code is cleaner and easier to modify. These sort of models are also known as design patterns (note to any developer reading this: yes, there are design patterns for testing and you should be using them!).</p>
+<p>There is plenty of information about POM (page object model), starting on selenium website (http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#page-object-design-pattern), so I am just going to summarise it here.</p>
+<p>In POM, we have (at least, depending on the implementation) two different types of classes:</p>
+<ol>
+<li>A class (page class) that would gather all the information of the objects that we need from a website's page (for example, a button or a text box) and micro-methods to preform common tasks (such as click, type, select, verify existence...). If you are very newbie, just open your browser's developer mode (usually f12 does it) and using the selector hover over the website to see the objects that it has and their associated values.</li>
+<li>Another class (model class) would implement the more sophisticated methods (test cases) using the objects and methods exposed by our page class.</li>
+</ol>
+<p>In this way, if the website changes layouts it would be easier to retrieve the objects again without the need of finding every instance of that object throughout the code.</p>
+<h2>1. Identify the repetitive tasks</h2>
+<p>So, you need to extract some of the elements on a website page, and add small known methods... We have found our repetitive tasks!</p>
+<p>However, our job is not done here. There are still many things to take into account for automation:</p>
+<ol>
+<li>The tools: What tools are the developers using? What programming language? And how are we going to design the system in respect to this? We should, within possible, try to align with the development tools, but sometimes this is not the best choice. For example, imagine that developers use both javascript and ruby to build a website, but that you have a team full of knowledgeable test engineers experienced in Java, shall we train them and align with the developers or take advantage of their current skills? This would have to be taken case by case.</li>
+<li>Dynamic programming: Would we need to extend our framework to support elements that would be refreshed in the screen without fully re-loading the website? (Nowadays, you most likely would!)</li>
+<li>Number of elements/iframes: If we have a lot of iframes, or elements in the website (such as many nested divs), but we only need to access certain elements, we might prefer to write an automated solution that allows us to input the elements that we want. However, it could be possible that we want to define everything on a page automatically, because that takes away one manual step while keeping a reasonable load.</li>
+</ol>
+<h2>2. Write code that does the tasks for you</h2>
+<p>To give an example and in order to simplify things, let's say that we have decided to create a solution in Java, that there is no dynamic loading and that we are going to say which elements and properties we want rather than getting them all.</p>
+<p>The idea of the code is as follows:</p>
+<p>Allow input of a list of elements, the type, the selector type and the selector for each of them. We could use a csv file for this, for example:</p>
+<p style="padding:2px 6px 4px;color:#555555;background-color:#eeeeee;border:#dddddd 2px solid;">name= loginbox, type=input, selector=id, id=loginbox;<br />
+name= password, type=input, selector=xpath, id=...;<br />
+name= loginButton, type=button, selector=name, id=loginButton;<br />
+name= textSuccess, type=textBox, selector=text, id=success;</p>
+<ol>
+<li>For each of the lines on the input file, create an object with the name and selector given.</li>
+<li>For each of the lines on the input file, create a method for the object Type:
+<ol>
+<li>For input: type method</li>
+<li>For button/href: click method</li>
+<li>For textBox: method to verify test</li>
+<li>For all: exist method</li>
+</ol>
+</li>
+</ol>
+<p>It would look something like this:<br />
+[code language="csharp"]// retrieval of the fileLines left out for exemplification[/code]<br />
+[code language="csharp"]for (Object o : fileLines) {</p>
+<p>switch(o.type) {</p>
+<p>case &quot;input&quot;:</p>
+<p>toPrintInPageClass += &quot;WebElement &quot; + o.name + &quot; = driver.findElement(By.&quot; + o.selector+ &quot;(\&quot;&quot; + o.id + &quot;\&quot;));\n&quot;;</p>
+<p>toPrintInPageClass += &quot;void &quot; + o.name + &quot;_type(string toType) { \n\t&quot; + o.name + &quot;.sendKeys(toType); \n}&quot;;</p>
+<p>break;</p>
+<p>case &quot;button&quot;:</p>
+<p>...... (you should have gotten the idea now)[/code]<br />
+This should take less than an hour to build, but after that, every page would be built in no time and the code would be less prone to errors as opposed to copy-pasting the same code over and over again. (You write one class as opposed to one per page)</p>
+<p>An additional benefit is that if you have a manual tester in the team, now you can assign him or her the definition of the inputs and execution of the code. And you just made that person able to "program" with this "very high level programming language".</p>
+<p>Bonus: After this is built, we can create another class that would extract the items from the website into the input file for this class. That way we can retrieve all the elements in one go without human intervention.</p>
+<h2>3. Identify when the code needs to be executed</h2>
+<p>What happens if a developer changes the website and adds an element? Shall we execute the whole thing again or just add manually the missing element?</p>
+<p>Even if it is tempting to add the missing element manually, I would suggest to add it to the input file, otherwise if someone decides to execute this code, your element would be missed. It is likely to still be faster to execute the code than to add an element manually.</p>
+<p>But what if it is not? What if we have so many elements at the moment than executing the code can take longer than adding just one more?</p>
+<p>I would still run the code rather than add elements manually, because it could as well be that some of those elements do not exist anymore. But if it is only one quick change, please remember to change the input file too.</p>
+<p>As an addition, we could add into the code functionality to modify the class already created rather than create a new one, but I'd say this could be a lot of overhead for the benefit that you can get out of it.</p>
+<h2>4. Execute the code or automate the execution</h2>
+<p>Lastly, especially if you have the object retrieval automated too, you might want to automate the execution. For example, you can say to the computer (using a cron file could be a way): run this code every evening at 8pm. Or once a week... once a month... That way you could "completely" forget about the page definition side of the POM and just focus on the functionality.</p>
+<p>Alternatively, if you have a way of retrieving the objects from the website, you could check that the original input is the same one as the newly generated and only execute the page class creation if they are different. That should be faster to run and it would allow you to change the actual code only when required.</p>
+<p>However, be careful with this approaches, because you might miss when you need to add new functionality.</p>
+<p>This is quite common in automation: you need to keep an eye on it. After it is built, it usually needs maintenance and refactoring. The better built, the less maintenance, but that does not mean 0 maintenance.</p>
+<h2>Conclusions:</h2>
+<p>Many sources would recommend to make short and simple tests, with the idea of identifying the failing parts easily and clearly. Nonetheless, sometimes you can spend longer in creating these simple tests than in actually testing the parts that are likely to fail, so the right balance is important.</p>
+<p>What we've looked at today would help creating many simple tests, but you still should be careful not to over-test things as sometimes it could be too expensive or not really needed.</p>
+<p>On the other hand, this could be a difficult task to do if we find with dynamically created objects or/and dynamically assigned id's/properties. There are ways of dealing with these as well, but that's...well...another story.</p>
